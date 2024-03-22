@@ -9,15 +9,15 @@ const tabs = [
         key: 'trainings',
         icon: 'dumbbell',
         label: 'Trainings',
-        barColor: '#388E3C',
+        barColor: 'white',
         pressColor: 'rgba(255, 255, 255, 0.16)',
         component: <Trainings />
       },
       {
         key: 'history',
-        icon: 'history',
+        icon: 'clock',
         label: 'History',
-        barColor: '#B71C1C',
+        barColor: 'white',
         pressColor: 'rgba(255, 255, 255, 0.16)',
         component: <History />
       },
@@ -25,7 +25,7 @@ const tabs = [
         key: 'discover',
         icon: 'map',
         label: 'Discover',
-        barColor: '#E64A19',
+        barColor: 'white',
         pressColor: 'rgba(255, 255, 255, 0.16)',
         component: <Discover />
       },
@@ -33,7 +33,7 @@ const tabs = [
         key: 'exercises',
         icon: 'list',
         label: 'Exercises',
-        barColor: '#1949e6',
+        barColor: 'white',
         pressColor: 'rgba(255, 255, 255, 0.16)',
         component: <Exercises />
       },
@@ -41,7 +41,7 @@ const tabs = [
         key: 'settings',
         icon: 'gear',
         label: 'Settings',
-        barColor: '#34e619',
+        barColor: 'white',
         pressColor: 'rgba(255, 255, 255, 0.16)',
         component: <Settings />
       }

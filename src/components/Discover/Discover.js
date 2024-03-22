@@ -1,10 +1,14 @@
-import {View, Text, StyleSheet} from "react-native";
+import {View, Text, StyleSheet, ScrollView} from "react-native";
+import ComponentHeader from "../common/ComponentHeader";
 
 const Discover = () => {
     return (
-        <View>
-            <Text>Discover</Text>
-        </View>
+        <ScrollView>
+            <ComponentHeader title={"Discover"} />
+            <View>
+                <Text>Test</Text>
+            </View>
+        </ScrollView>
     )
 }
 

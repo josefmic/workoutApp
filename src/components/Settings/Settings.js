@@ -1,10 +1,14 @@
-import {View, Text} from "react-native";
+import {View, Text, ScrollView} from "react-native";
+import ComponentHeader from "../common/ComponentHeader";
 
 const Settings = () => {
     return (
-        <View>
-            <Text>Settings</Text>
-        </View>
+        <ScrollView>
+            <ComponentHeader title={"Settings"} />
+            <View>
+                <Text>Test</Text>
+            </View>
+        </ScrollView>
     )
 }
 

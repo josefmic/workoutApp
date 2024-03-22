@@ -1,7 +1,10 @@
 import AppNavigator from './src/router/AppNavigator.js'
+import {SafeAreaProvider} from "react-native-safe-area-context";
 
 export default function App() {
   return (
-    <AppNavigator />
+      <SafeAreaProvider>
+        <AppNavigator />
+      </SafeAreaProvider>
   );
 }

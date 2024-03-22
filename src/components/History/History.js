@@ -1,10 +1,14 @@
-import {View, Text} from "react-native";
+import {View, Text, ScrollView} from "react-native";
+import ComponentHeader from "../common/ComponentHeader";
 
 const History = () => {
     return (
-        <View>
-            <Text>History</Text>
-        </View>
+        <ScrollView>
+            <ComponentHeader title={"History"} />
+            <View>
+                <Text>Test</Text>
+            </View>
+        </ScrollView>
     )
 }
 

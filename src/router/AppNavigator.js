@@ -1,12 +1,15 @@
 import React, {useCallback, useState} from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import BottomNavigation, { FullTab } from "react-native-material-bottom-navigation";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import tabs from "./tabs.js";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import colors from "../components/common/colors";
+import styles from "./AppNavigator.styles"
 
 const AppNavigator = () => {
     const renderIcon = icon => ({ isActive }) => (
-        <Icon size={24} color="white" name={icon} />
+        <Icon size={24} color={`${isActive ? colors.purple : colors.grey}`} name={icon} />
     )
 
     const renderTab = ({ tab, isActive }) => (
@@ -28,18 +31,31 @@ const AppNavigator = () => {
         [setActiveTab]
     );
 
+    const insets = useSafeAreaInsets();
+
+    const dynamicStyles = {
+        ...styles,
+        container: {
+            ...styles.container,
+            paddingBottom: insets.bottom,
+            paddingTop: insets.top
+        }
+    };
+
     return (
-        <View style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+        <View style={dynamicStyles.container}>
+            <View style={dynamicStyles.content}>
                 {activeTabComponent}
             </View>
-            <BottomNavigation
-                style={{ paddingBottom: "10px" }}
-                activeTab={activeTab}
-                onTabPress={handleTabPress}
-                renderTab={renderTab}
-                tabs={tabs}
-            />
+            <View>
+                <BottomNavigation
+                    style={dynamicStyles.bottomNavigation}
+                    activeTab={activeTab}
+                    onTabPress={handleTabPress}
+                    renderTab={renderTab}
+                    tabs={tabs}
+                />
+            </View>
         </View>
     )
    

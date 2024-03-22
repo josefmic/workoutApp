@@ -1,10 +1,16 @@
-import {View, Text} from "react-native";
+import {View, Text, ScrollView} from "react-native";
+import styles from "./Trainings.styles"
+import ComponentHeader from "../common/ComponentHeader";
+import RoutineList from "./routines/RoutineList";
 
 const Trainings = () => {
     return (
-        <View>
-            <Text>Trainings</Text>
-        </View>
+        <ScrollView>
+            <ComponentHeader title={"Workout Routines"} />
+            <View>
+                <RoutineList />
+            </View>
+        </ScrollView>
     )
 }
 

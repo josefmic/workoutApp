@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         padding: 25,
         borderStyle: "solid",
         borderColor: colors.lightGrey,
-        borderWidth: 2,
+        borderWidth: 1.5,
         borderRadius: 15
     },
     title: {

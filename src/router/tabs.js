@@ -1,6 +1,6 @@
-import Trainings from "../components/Trainings/Trainings";
+import Trainings from "../components/Trainings/view/Trainings";
 import Discover from "../components/Discover/Discover";
-import Exercises from "../components/Exercises/Exercises";
+import Exercises from "../components/Exercises/view/Exercises";
 import Settings from "../components/Settings/Settings";
 import History from "../components/History/History";
 

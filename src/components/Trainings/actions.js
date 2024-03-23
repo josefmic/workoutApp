@@ -32,7 +32,6 @@ export const getRoutinesFromStorage = async (dispatch) => {
         const routines = await AsyncStorage.getItem(ROUTINES_KEY);
         dispatch({ type: GET_ROUTINES_SUCCESS, payload: routines ? JSON.parse(routines) : [] });
     } catch (error) {
-        console.error('Error retrieving routines: ', error);
         dispatch({ type: GET_ROUTINES_FAILURE, payload: error });
     }
 };

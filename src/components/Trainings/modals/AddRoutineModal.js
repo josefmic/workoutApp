@@ -5,7 +5,7 @@ import styles from "./AddRoutineModal.styles"
 
 const AddRoutineModal = ({ modalVisible, setModalVisible }) => {
     return (
-        <CustomModal setModalVisible={setModalVisible} modalVisible={modalVisible}>
+        <CustomModal setModalVisible={setModalVisible} modalVisible={modalVisible} modalId={"add-routine-modal"}>
             <View style={styles.topButtonsContainer}>
                 <TopButton onPress={() => setModalVisible(!setModalVisible)} icon="circle-xmark" />
                 <TopButton onPress={() => ""} icon="circle-plus" />

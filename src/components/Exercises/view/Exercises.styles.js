@@ -3,6 +3,10 @@ import colors from "../../common/colors";
 
 const styles = StyleSheet.create({
     item: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
         paddingBottom: 8,
         paddingTop: 20,
         borderBottomWidth: 1,
@@ -13,6 +17,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: colors.lightGrey,
         backgroundColor: colors.lightGrey,
+        width: "80%",
     },
     searchContainer: {
         backgroundColor: colors.lightGrey,
@@ -20,6 +25,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         flex: 1,
+        borderRadius: 10
     },
     letterContainer: {
         paddingTop: 20,
@@ -31,14 +37,14 @@ const styles = StyleSheet.create({
         fontSize: 15
     },
     flatListContainer: {
-        flex: 1,
-        padding: 10,
+        paddingBottom: 25
     },
     topContainer: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
+        paddingBottom: 10
     }
 });
 

@@ -13,7 +13,7 @@ export const useSafeAreaStyles = () => {
         content: {
             flex: 1,
             paddingHorizontal: 25,
-            paddingTop: 10
+            paddingTop: 10,
         },
         modalContent: {
             paddingHorizontal: 15,

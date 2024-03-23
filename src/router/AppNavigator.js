@@ -44,7 +44,7 @@ const AppNavigator = () => {
 
     return (
         <View style={safeAreaStyles.container}>
-            <View style={[safeAreaStyles.content, { flex: 1 }]}>
+            <View style={[safeAreaStyles.content]}>
                 {activeTabComponent}
             </View>
             <View>

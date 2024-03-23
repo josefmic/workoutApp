@@ -8,8 +8,16 @@ const handleFilterExercises = (exercises, searchQuery, filterQuery) => {
         );
     }
 
-    if (filterQuery) {
+    if (filterQuery?.muscle) {
+        filteredData = filteredData.filter(exercise =>
+            exercise?.Muscles ? exercise?.Muscles.toLowerCase() === filterQuery?.muscle.toLowerCase() : null
+        );
+    }
 
+    if (filterQuery?.equipment) {
+        filteredData = filteredData.filter(exercise =>
+            exercise?.Equipment ? exercise?.Equipment.toLowerCase() === filterQuery?.equipment.toLowerCase() : null
+        );
     }
 
     let currentLetter = '';

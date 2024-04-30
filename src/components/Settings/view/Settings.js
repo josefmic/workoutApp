@@ -7,17 +7,18 @@ import ComponentHeader from "../../common/ComponentHeader";
 import styles from "./Settings.styles";
 import UnitsModal from "../modals/UnitsModal";
 import NotificationModal from "../modals/NotificationModal";
+import { useDispatch, useSelector } from "react-redux";
+import { setInactiveDays, setNotificationEnabled, setWeightUnit } from "../actions";
 
 const Settings = () => {
-    // todo - these should be in redux context
-    const [isNotificationEnabled, setIsNotificationEnabled] = useState(false);
-    const [weightUnit, setWeightUnit] = useState('kg');
-    const [inactiveDays, setInactiveDays] = useState(5);
+    const dispatch = useDispatch();
+    const isNotificationEnabled = useSelector(state => state.settings.isNotificationEnabled);
+    const weightUnit = useSelector(state => state.settings.weightUnit);
+    console.log('Rendering Settings with weight unit: ', weightUnit);
+    const inactiveDays = useSelector(state => state.settings.inactiveDays);
 
     const [isUnitModalVisible, setIsUnitModalVisible] = useState(false);
     const [isNotificationModalVisible, setIsNotificationModalVisible] = useState(false);
-
-    const toggleSwitch = () => setIsNotificationEnabled(previousState => !previousState);
 
     const onShare = async () => {
         try {
@@ -46,6 +47,22 @@ const Settings = () => {
         setIsNotificationModalVisible(true);
     }
 
+    const changeWeightUnits = (unit) => {
+        dispatch(setWeightUnit(unit));
+        console.log('Changing units to: ', unit);
+        setIsUnitModalVisible(false);
+    }
+
+    const changeInactiveDays = (days) => {
+        dispatch(setInactiveDays(days));
+        console.log('Changing inactive days to: ', days);
+    }
+
+    const changeNotificationEnabled = (value) => {
+        dispatch(setNotificationEnabled(value));
+        console.log('Changing notification enabled to: ', value);
+    }
+
     return (
         <ScrollView>
             <View style={styles.headerContainer}>
@@ -67,15 +84,15 @@ const Settings = () => {
                 modalVisible={isUnitModalVisible}
                 setModalVisible={setIsUnitModalVisible}
                 weightUnit={weightUnit}
-                setWeightUnit={setWeightUnit}
+                setWeightUnit={changeWeightUnits}
             />
             <NotificationModal
                 modalVisible={isNotificationModalVisible}
                 setModalVisible={setIsNotificationModalVisible}
                 notificationsActive={isNotificationEnabled}
-                setNotificationsActive={toggleSwitch}
+                setNotificationsActive={changeNotificationEnabled}
                 inactiveDays={inactiveDays}
-                setInactiveDays={setInactiveDays}
+                setInactiveDays={changeInactiveDays}
             />
         </ScrollView>
     );

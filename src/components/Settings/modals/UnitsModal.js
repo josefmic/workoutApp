@@ -4,15 +4,12 @@ import { MaterialIcons } from '@expo/vector-icons';
 import CustomModal from "../../common/CustomModal";
 import colors from "../../common/colors";
 import UnitSetRow from "../helpers/UnitSetRow";
+import { useDispatch } from "react-redux";
 
 const UnitsModal = ({ modalVisible, setModalVisible, weightUnit, setWeightUnit }) => {
+
 	const closeModal = () => {
 		setModalVisible(false);
-	}
-
-	const chooseUnit = (unit) => {
-		setWeightUnit(unit);
-		closeModal();
 	}
 
 	return (
@@ -26,8 +23,8 @@ const UnitsModal = ({ modalVisible, setModalVisible, weightUnit, setWeightUnit }
 			</View>
 			<View style={styles.sectionContainer}>
 				<Text style={styles.sectionTitle}>System default</Text>
-				<UnitSetRow icon={weightUnit === 'lbs' ? "check" : null} text="Imperial (lbs)" onRowPress={() => chooseUnit('lbs')} />
-				<UnitSetRow icon={weightUnit === 'kg' ? "check" : null} text="Metric (kg)" onRowPress={() => chooseUnit('kg')} />
+				<UnitSetRow icon={weightUnit === 'lbs' ? "check" : null} text="Imperial (lbs)" onRowPress={() => setWeightUnit('lbs')} />
+				<UnitSetRow icon={weightUnit === 'kg' ? "check" : null} text="Metric (kg)" onRowPress={() => setWeightUnit('kg')} />
 			</View>
 			</CustomModal>
 	);

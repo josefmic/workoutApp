@@ -4,21 +4,23 @@ import { Share } from 'react-native';
 import Toast from 'react-native-toast-message';
 import SettingRow from "../helpers/SettingRow";
 import ComponentHeader from "../../common/ComponentHeader";
-import styles from "./Settings.styles";
+import styles  from "./Settings.styles";
 import UnitsModal from "../modals/UnitsModal";
 import NotificationModal from "../modals/NotificationModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setInactiveDays, setNotificationEnabled, setWeightUnit } from "../actions";
+import { useSafeAreaStyles } from "../../common/View.styles";
 
 const Settings = () => {
     const dispatch = useDispatch();
     const isNotificationEnabled = useSelector(state => state.settings.isNotificationEnabled);
     const weightUnit = useSelector(state => state.settings.weightUnit);
-    console.log('Rendering Settings with weight unit: ', weightUnit);
     const inactiveDays = useSelector(state => state.settings.inactiveDays);
 
     const [isUnitModalVisible, setIsUnitModalVisible] = useState(false);
     const [isNotificationModalVisible, setIsNotificationModalVisible] = useState(false);
+
+    const commonStyles = useSafeAreaStyles()
 
     const onShare = async () => {
         try {
@@ -65,7 +67,7 @@ const Settings = () => {
 
     return (
         <ScrollView>
-            <View style={styles.headerContainer}>
+            <View style={commonStyles.headerContainer}>
                 <ComponentHeader title={"Settings"} />
             </View>
             <View style={styles.sectionContainer}>

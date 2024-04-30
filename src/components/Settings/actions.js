@@ -29,7 +29,6 @@ export const setNotificationEnabled = (value) => async (dispatch) => {
 };
 
 export const setWeightUnit = (value) => async (dispatch) => {
-	console.log('Setting weight unit to: ', value);
 	dispatch({
 		type: SET_WEIGHT_UNIT,
 		payload: value,

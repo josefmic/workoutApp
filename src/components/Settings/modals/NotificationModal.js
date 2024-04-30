@@ -21,6 +21,7 @@ const NotificationsModal = ({ modalVisible, setModalVisible, notificationsActive
 				<View />
 			</View>
 			<View style={styles.sectionContainer}>
+				<Text style={styles.sectionTitle}>System default</Text>
 				<NotificationRow text="Activate notifications" isSwitch={true} switchValue={notificationsActive} onSwitchValueChange={setNotificationsActive} />
 				<NotificationRow text="Inactive days until notification" isNumberPicker={true} numberPickerValue={inactiveDays} onNumberPickerValueChange={setInactiveDays} />
 			</View>

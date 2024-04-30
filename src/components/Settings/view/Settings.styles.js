@@ -1,10 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    headerContainer: {
-        paddingTop: 55,
-        paddingBottom: 40,
-    },
     settingContainer: {
         margin: 10,
         padding: 10,
@@ -12,6 +8,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     sectionContainer: {
+        marginTop: 20,
         marginBottom: 40,
     },
     sectionTitle: {

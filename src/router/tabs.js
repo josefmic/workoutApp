@@ -1,5 +1,5 @@
 import Trainings from "../components/Trainings/view/Trainings";
-import Discover from "../components/Discover/Discover";
+import Discover from "../components/Discover/View/Discover";
 import Exercises from "../components/Exercises/view/Exercises";
 import Settings from "../components/Settings/view/Settings";
 import History from "../components/History/History";

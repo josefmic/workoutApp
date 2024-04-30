@@ -18,6 +18,12 @@ export const useSafeAreaStyles = () => {
         modalContent: {
             paddingHorizontal: 15,
             backgroundColor: "white"
-        }
+        },
+        headerContainer: {
+            width: 364,
+            height: 97,
+            display: 'flex',
+            justifyContent: "flex-end",
+        },
     });
 };

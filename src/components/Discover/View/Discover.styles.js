@@ -1,27 +1,24 @@
 import { StyleSheet } from 'react-native';
+import colors from "../../common/colors";
 
 const styles = StyleSheet.create({
-	headerContainer: {
-		paddingTop: 55,
-		paddingBottom: 40,
-	},
-	settingContainer: {
-		margin: 10,
-		padding: 10,
+	container: {
+		flex: 1,
 		backgroundColor: '#fff',
-		borderRadius: 10,
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 	sectionContainer: {
-		marginBottom: 40,
+		paddingTop: 16,
 	},
 	sectionTitle: {
-		color: '#828282',
-		fontFamily: 'Poppins',
-		fontSize: 10,
-		fontStyle: 'normal',
-		fontWeight: '400',
-		lineHeight: 20,
-		textTransform: 'uppercase',
+		fontSize: 18,
+		fontWeight: '600',
+	},
+	helperText: {
+		marginTop: 10,
+		fontSize: 14,
+		color: colors.purple,
 	}
 });
 

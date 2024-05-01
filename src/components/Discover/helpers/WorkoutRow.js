@@ -1,18 +1,26 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from "react-native";
 import Button from '../../common/buttons/Button';
 import colors from "../../common/colors";
 import { StyleSheet } from "react-native";
 
-const WorkoutRow = ({ workoutName, workoutTarget, onAdd }) => {
+const WorkoutRow = ({ workout, onAdd, onClick }) => {
+	const handleAdd = (e) => {
+		//stop event from bubbling up
+		e.stopPropagation();
+		onAdd();
+	}
+
 	return (
-		<View style={styles.container}>
-			<View style={styles.leftSide}>
-				<Text style={styles.workoutName}>{workoutName}</Text>
-				<Text style={styles.workoutTarget}>{workoutTarget}</Text>
+		<TouchableOpacity onPress={onClick}>
+			<View style={styles.container}>
+				<View style={styles.leftSide}>
+					<Text style={styles.workoutName}>{workout.name}</Text>
+					<Text style={styles.workoutTarget}>{workout.target}</Text>
+				</View>
+				<Button title="Add" onClick={handleAdd} />
 			</View>
-			<Button title="Add" onClick={onAdd} />
-		</View>
+		</TouchableOpacity>
 	);
 }
 

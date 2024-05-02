@@ -7,21 +7,34 @@ import colors from "../../common/colors";
 import { useSafeAreaStyles } from "../../common/View.styles";
 import { StyleSheet } from "react-native";
 import WorkoutSetRow from "../helpers/WorkoutSetRow";
+import Button from '../../common/buttons/Button'; // import Button
 
-const WorkoutDetailModal = ({ modalVisible, setModalVisible, workout }) => {
+const WorkoutDetailModal = ({ modalVisible, setModalVisible, workout, isAdded, onAdd }) => { // add isAdded and onAdd props
 	const commonStyles = useSafeAreaStyles();
 
 	return (
 		<CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible}>
 			<View style={commonStyles.headerContainer}>
-				<TouchableOpacity style={{marginBottom: 10}} onPress={() => setModalVisible(false)}>
-					<MaterialIcons name="arrow-back" size={24} color={colors.purple} />
-				</TouchableOpacity>
+				<View style={styles.arrowBackWrapper}>
+					<TouchableOpacity onPress={() => setModalVisible(false)}>
+						<MaterialIcons name="arrow-back" size={24} color={colors.purple} />
+					</TouchableOpacity>
+				</View>
 				<ComponentHeader title={"Workout Routine"} />
 			</View>
 			<View style={styles.descContainer}>
-				<Text style={styles.workoutName}>{workout.name}</Text>
-				<Text style={styles.workoutTarget}>{workout.target}</Text>
+				<View>
+					<Text style={styles.workoutName}>{workout.name}</Text>
+					<Text style={styles.workoutTarget}>{workout.target}</Text>
+				</View>
+				{isAdded ? (
+					<View style={styles.iconWrapper}>
+						<MaterialIcons name="check" size={24} color="green" style={styles.icon}/>
+						<Text style={{color: "green"}}>Added</Text>
+					</View>
+				) : (
+					<Button title="Add" onClick={onAdd} />
+				)}
 			</View>
 
 			{workout.exercises.map((exercise, index) => (
@@ -39,12 +52,16 @@ const WorkoutDetailModal = ({ modalVisible, setModalVisible, workout }) => {
 	);
 };
 
+
 const styles = StyleSheet.create({
 	descContainer: {
 		display: 'flex',
 		flexDirection: 'row',
-		alignItems: "flex-end",
+		alignItems: "center",
+		justifyContent: "space-between",
+		marginHorizontal: 20,
 		gap: 20,
+		minHeight: 80,
 	},
 	workoutName: {
 		fontSize: 24,
@@ -67,6 +84,18 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		alignItems: "center",
 		marginBottom: 20,
+	},
+	iconWrapper: {
+		padding: 8,
+		marginHorizontal: 15,
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	arrowBackWrapper: {
+		paddingVertical: 10,
+		maxWidth: 40,
 	},
 });
 

@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import colors from "../../common/colors";
 import {useState} from "react";
 import ExerciseModal from "../modals/ExerciseModal";
+import capitalizeFirstLetter from "../../common/helpers/capitalizeFirstLetter";
 
 const Exercise = ({ item, onClick }) => {
     const [exModalOpen, setExModalOpen] = useState(false)
@@ -16,7 +17,7 @@ const Exercise = ({ item, onClick }) => {
                 onPress={onClick}
             >
                 <View style={styles.item} >
-                        <Text>{item?.WorkOut}</Text>
+                        <Text>{capitalizeFirstLetter(item?.name)}</Text>
                     <TouchableOpacity
                         onPress={() => setExModalOpen(true)}
                     >

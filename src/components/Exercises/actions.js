@@ -11,11 +11,11 @@ export const getExercises = () => {
         });
 
         try {
-            const response = await fetch(`${process.env.RAPID_API_URL}/search`, {
+            const response = await fetch(`${process.env.RAPID_API_URL}/exercises?limit=10000`, {
                 headers: {
                     'X-RapidAPI-Key': process.env.RAPID_API_KEY,
                     'X-RapidAPI-Host': process.env.RAPID_API_HOST,
-                }
+                },
             });
 
             const data = await handleResponse(response);

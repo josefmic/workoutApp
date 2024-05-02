@@ -1,22 +1,22 @@
 
 const handleFilterExercises = (exercises, searchQuery, filterQuery) => {
-    let filteredData = exercises.slice().sort((a, b) => a?.WorkOut.localeCompare(b?.WorkOut));
+    let filteredData = exercises.slice().sort((a, b) => a?.name.localeCompare(b?.name));
 
     if (searchQuery) {
         filteredData = filteredData.filter(exercise =>
-            exercise?.WorkOut.toLowerCase().includes(searchQuery.toLowerCase())
+            exercise?.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
     }
 
     if (filterQuery?.muscle) {
         filteredData = filteredData.filter(exercise =>
-            exercise?.Muscles ? exercise?.Muscles.toLowerCase() === filterQuery?.muscle.toLowerCase() : null
+            exercise?.target ? exercise?.target.toLowerCase() === filterQuery?.muscle.toLowerCase() : null
         );
     }
 
     if (filterQuery?.equipment) {
         filteredData = filteredData.filter(exercise =>
-            exercise?.Equipment ? exercise?.Equipment.toLowerCase() === filterQuery?.equipment.toLowerCase() : null
+            exercise?.equipment ? exercise?.equipment.toLowerCase() === filterQuery?.equipment.toLowerCase() : null
         );
     }
 
@@ -24,7 +24,7 @@ const handleFilterExercises = (exercises, searchQuery, filterQuery) => {
     const groupedExercises = [];
 
     filteredData.forEach(exercise => {
-        const firstLetter = exercise?.WorkOut.charAt(0).toUpperCase();
+        const firstLetter = exercise?.name.charAt(0).toUpperCase();
         if (firstLetter !== currentLetter) {
             groupedExercises.push({ letter: firstLetter, isLetter: true });
             currentLetter = firstLetter;

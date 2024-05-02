@@ -45,7 +45,17 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         paddingBottom: 10
-    }
+    },
+    infoTextContainer: {
+        marginBottom: 8,
+    },
+    infoTextTitle: {
+        fontWeight: "bold",
+        marginRight: 4,
+    },
+    numberedList: {
+        marginLeft: 16,
+    },
 });
 
 export default styles

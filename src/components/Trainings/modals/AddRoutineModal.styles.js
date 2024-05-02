@@ -44,12 +44,27 @@ const styles = StyleSheet.create({
     },
     exerciseTableContainer: {
         width: "100%",
+        display: "flex",
+        alignItems: "center"
     },
     tableRow: {
-        padding: 5
+        padding: 5,
+        marginVertical: 10
     },
-    tableInput: {
+    tableText: {
+        textAlign: "center"
+    },
+    tableHeadText: {
+        fontWeight: "bold",
+        textAlign: "center"
 
+    },
+    topContainer: {
+        padding: 10,
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
     }
 });
 

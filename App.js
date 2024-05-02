@@ -9,8 +9,14 @@ import { Text, View } from "react-native";
 import { loadSettings } from "./src/components/Settings/actions";
 import {getExercises} from "./src/components/Exercises/actions";
 import {exercisesSelector} from "./src/components/Exercises/reducer";
+import * as Notifications from "expo-notifications";
+import * as BackgroundFetch from 'expo-background-fetch';
+import { task } from "./src/components/common/helpers/backgroundNotificationTask";
+
+const BACKGROUND_FETCH_TASK = 'background-fetch';
 
 const AppContent = () => {
+
     const dispatch = useDispatch();
 
     const exercisesData = useSelector(exercisesSelector)
@@ -25,6 +31,16 @@ const AppContent = () => {
         // include other font styles if needed
     });
 
+    Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+            shouldShowAlert: true,
+            shouldPlaySound: true,
+            shouldSetBadge: true,
+            //todo clear badge when user finishes a workout
+            // this code: await Notifications.setApplicationIconBadgeNumberAsync(0);
+        }),
+    });
+
     const isDataLoaded = !!(fontsLoaded && exercisesData.length > 0)
 
     return isDataLoaded
@@ -35,6 +51,14 @@ const AppContent = () => {
 };
 
 export default function App() {
+
+    BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
+        minimumInterval: 24 * 60 * 60, // 24 hours
+        stopOnTerminate: false,
+        startOnBoot: true,
+        task: task
+    });
+
     return (
         <Provider store={store}>
             <SafeAreaProvider>

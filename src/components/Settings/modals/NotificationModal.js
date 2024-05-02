@@ -1,14 +1,37 @@
-// NotificationsModal.js
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Linking } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 import CustomModal from "../../common/CustomModal";
 import colors from "../../common/colors";
 import NotificationRow from "../helpers/NotificationRow";
+import { Alert } from 'react-native';
+import * as Notifications from 'expo-notifications';
 
 const NotificationsModal = ({ modalVisible, setModalVisible, notificationsActive, setNotificationsActive, inactiveDays, setInactiveDays }) => {
 	const closeModal = () => {
 		setModalVisible(false);
+	}
+
+	const handleNotificationToggle = async (value) => {
+		if (value) {
+			const { status } = await Notifications.getPermissionsAsync();
+			if (status !== 'granted') {
+				Alert.alert(
+					"Enable Notifications",
+					"To receive notifications, please enable them in your system settings.",
+					[
+						{ text: "Cancel" },
+						{ text: "Settings", onPress: () => Linking.openURL('app-settings:') }
+					]
+				);
+			} else {
+				setNotificationsActive(value);
+			}
+		}
+	}
+
+	const handleInactiveDaysChange = async (value) => {
+		setInactiveDays(value);
 	}
 
 	return (
@@ -22,8 +45,16 @@ const NotificationsModal = ({ modalVisible, setModalVisible, notificationsActive
 			</View>
 			<View style={styles.sectionContainer}>
 				<Text style={styles.sectionTitle}>System default</Text>
-				<NotificationRow text="Activate notifications" isSwitch={true} switchValue={notificationsActive} onSwitchValueChange={setNotificationsActive} />
-				<NotificationRow text="Inactive days until notification" isNumberPicker={true} numberPickerValue={inactiveDays} onNumberPickerValueChange={setInactiveDays} />
+				<NotificationRow
+					text="Activate notifications"
+					isSwitch={true}
+					switchValue={notificationsActive}
+					onSwitchValueChange={handleNotificationToggle} />
+				<NotificationRow
+					text="Inactive days until notification"
+					isNumberPicker={true}
+					numberPickerValue={inactiveDays}
+					onNumberPickerValueChange={handleInactiveDaysChange} />
 			</View>
 		</CustomModal>
 	);

@@ -44,7 +44,7 @@ const Exercises = ({ onClick }) => {
                         if (item.isLetter) {
                             return `letter-${item.letter}-${index}`;
                         } else {
-                            return `exercise-${item.WorkOut}-${index}`;
+                            return `exercise-${item.name}-${index}`;
                         }
                     }}
                     showsVerticalScrollIndicator={false}

@@ -1,25 +1,16 @@
-import React, {useCallback, useEffect, useState} from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, {useCallback, useState} from "react";
+import { View } from "react-native";
 import BottomNavigation, { FullTab } from "react-native-material-bottom-navigation";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import tabs from "./tabs.js";
 import colors from "../components/common/colors";
 import styles from "./AppNavigator.styles"
 import {useSafeAreaStyles} from "../components/common/View.styles";
-import {useDispatch} from "react-redux";
-import {getExercises} from "../components/Exercises/actions";
 
 const AppNavigator = () => {
     const renderIcon = icon => ({ isActive }) => (
         <Icon size={24} color={`${isActive ? colors.purple : colors.grey}`} name={icon} />
     )
-
-    // Get exercises from api on app start so that we can use them anywhere
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(getExercises())
-    }, [dispatch])
-
 
     const renderTab = ({ tab, isActive }) => (
         <FullTab

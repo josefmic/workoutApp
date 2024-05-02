@@ -41,6 +41,15 @@ const styles = StyleSheet.create({
         textAlign: "center",
         width: 300,
         marginVertical: 20
+    },
+    exerciseTableContainer: {
+        width: "100%",
+    },
+    tableRow: {
+        padding: 5
+    },
+    tableInput: {
+
     }
 });
 

@@ -24,28 +24,29 @@ const Exercise = ({ e }) => {
     };
 
     return (
-        <View>
-            <Table borderStyle={{ borderWidth: 1, borderColor: '#C1C0B9', width: "80%" }}>
+        <View style={styles.exerciseTableContainer}>
+            <Table>
                 {
                     tableData.map((rowData, rowIndex) => (
                         <Row
                             key={rowIndex}
                             data={rowData.map((cellData, columnIndex) => (
-                                <TextInput
-                                    key={columnIndex}
-                                    style={styles.input}
-                                    onChangeText={(text) => onChangeText(text, rowIndex, columnIndex)}
-                                    value={cellData}
-                                />
+                                <View style={{ justifyContent: "center"}}>
+                                    <TextInput
+                                        key={columnIndex}
+                                        style={styles.tableInput}
+                                        onChangeText={(text) => onChangeText(text, rowIndex, columnIndex)}
+                                        value={cellData}
+                                    />
+                                </View>
                             ))}
-                            style={styles.row}
+                            style={styles.tableRow}
                         />
                     ))
                 }
             </Table>
             <Text onPress={addRow} style={{...globalStyles.defaultText, color: colors.purple}}>
                 <Icon
-                    style={styles.icon}
                     color={colors.purple}
                     name="plus"
                     size={20}

@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
     modalHeader: {
         flexDirection: "row",
         alignItems: "center",
-        paddingHorizontal: 10,
         paddingTop: 10,
     },
     modalHeaderText: {
@@ -13,9 +12,9 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         flex: 1,
         textAlign: "center",
+        paddingRight: 20
     },
     modalContent: {
-        paddingHorizontal: 20,
         paddingVertical: 20,
     },
     modalText: {

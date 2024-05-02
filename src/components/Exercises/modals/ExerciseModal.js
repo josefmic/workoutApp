@@ -1,4 +1,4 @@
-import {View, Text, Image} from "react-native";
+import {View, Text, Image, ScrollView} from "react-native";
 import TopButton from "../../common/buttons/TopButton";
 import CustomModal from "../../common/CustomModal";
 import styles from "./ExerciseModal.styles"
@@ -13,7 +13,7 @@ const ExerciseModal = ({ modalVisible, setModalVisible, item }) => {
                 <Text style={styles.modalHeaderText}>{capitalizeFirstLetter(item?.name ?? "")}</Text>
                 <TopButton onPress={() => ""} icon="" />
             </View>
-            <View style={styles.modalContent}>
+            <ScrollView style={styles.modalContent} showsVerticalScrollIndicator={false}>
                 {item.target && (
                     <>
                         <ModalInfoText title="Muscle: " body={capitalizeFirstLetter(item.target)} />
@@ -23,7 +23,7 @@ const ExerciseModal = ({ modalVisible, setModalVisible, item }) => {
                         <Image source={{ uri: item?.gifUrl }} style={{width: 300, height: 300}} />
                     </>
                 )}
-            </View>
+            </ScrollView>
         </CustomModal>
     )
 }

@@ -16,8 +16,8 @@ export const useSafeAreaStyles = () => {
             paddingTop: 10,
         },
         modalContent: {
-            paddingHorizontal: 15,
+            paddingHorizontal: 25,
             backgroundColor: "white"
-        }
+        },
     });
 };

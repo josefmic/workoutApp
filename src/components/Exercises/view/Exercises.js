@@ -17,10 +17,6 @@ const Exercises = ({ onClick }) => {
     const data = useSelector(exercisesSelector)
     const filteredExercises = handleFilterExercises(data, searchQuery, filterQuery)
 
-    const renderExerciseItem = ( item ) => {
-        return handleRenderExerciseItem(item, onClick);
-    };
-
     return (
         <View>
             <ComponentHeader title={"Exercises"} />
@@ -39,7 +35,7 @@ const Exercises = ({ onClick }) => {
             <View>
                 <FlatList
                     data={filteredExercises}
-                    renderItem={renderExerciseItem}
+                    renderItem={({ item }) => handleRenderExerciseItem(item, onClick)}
                     keyExtractor={(item, index) => {
                         if (item.isLetter) {
                             return `letter-${item.letter}-${index}`;

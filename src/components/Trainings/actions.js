@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {handleResponse} from "../../api/response";
 
 const ROUTINES_KEY = 'routines';
 
@@ -12,26 +13,36 @@ export const saveRoutinesToStorage = (routines) => async (dispatch) => {
 
     try {
         await AsyncStorage.setItem(ROUTINES_KEY, JSON.stringify(routines));
+
         dispatch({ type: SAVE_ROUTINES_SUCCESS });
+        dispatch({ type: GET_TRAININGS_SUCCESS, payload: routines });
     } catch (error) {
         console.error('Error saving routines: ', error);
         dispatch({ type: SAVE_ROUTINES_FAILURE, payload: error });
     }
 }
 
-export const GET_ROUTINES_LOADING = 'GET_ROUTINES_LOADING';
-export const GET_ROUTINES_SUCCESS = 'GET_ROUTINES_SUCCESS';
-export const GET_ROUTINES_FAILURE = 'GET_ROUTINES_FAILURE';
-export const getRoutinesFromStorage = async (dispatch) => {
+export const GET_TRAININGS_LOADING = 'GET_TRAININGS_LOADING';
+export const GET_TRAININGS_SUCCESS = 'GET_TRAININGS_SUCCESS';
+export const GET_TRAININGS_FAILURE = 'GET_TRAININGS_FAILURE';
 
-    dispatch({
-        type: GET_ROUTINES_LOADING
-    })
+export const getTrainingsFromStorage = () => {
+    return async (dispatch) => {
+        dispatch({
+            type: GET_TRAININGS_LOADING
+        });
 
-    try {
-        const routines = await AsyncStorage.getItem(ROUTINES_KEY);
-        dispatch({ type: GET_ROUTINES_SUCCESS, payload: routines ? JSON.parse(routines) : [] });
-    } catch (error) {
-        dispatch({ type: GET_ROUTINES_FAILURE, payload: error });
-    }
+        try {
+            const response = await AsyncStorage.getItem(ROUTINES_KEY);
+            if (response !== null) {
+                const data = JSON.parse(response);
+                dispatch({ type: GET_TRAININGS_SUCCESS, payload: data });
+            } else {
+                dispatch({ type: GET_TRAININGS_SUCCESS, payload: [] });
+            }
+        } catch (error) {
+            console.error('Error getting routines from storage: ', error);
+            dispatch({ type: GET_TRAININGS_FAILURE, payload: error.message });
+        }
+    };
 };

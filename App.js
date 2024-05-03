@@ -9,6 +9,10 @@ import { Text, View } from "react-native";
 import { loadSettings } from "./src/components/Settings/actions";
 import {getExercises} from "./src/components/Exercises/actions";
 import {exercisesSelector} from "./src/components/Exercises/reducer";
+import {getTrainingsFromStorage} from "./src/components/Trainings/actions";
+if (__DEV__) {
+    require("./ReactotronConfig");
+}
 
 const AppContent = () => {
     const dispatch = useDispatch();
@@ -17,7 +21,8 @@ const AppContent = () => {
 
     useEffect(() => {
         dispatch(loadSettings());
-        dispatch(getExercises())
+        dispatch(getExercises());
+        dispatch(getTrainingsFromStorage());
     }, [dispatch]);
 
     let [fontsLoaded] = useFonts({

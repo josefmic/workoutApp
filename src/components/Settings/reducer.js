@@ -1,7 +1,7 @@
 const initialState = {
 	isNotificationEnabled: false,
 	weightUnit: 'kg',
-	inactiveDays: 5,
+	inactiveDays: 3,
 };
 
 const settingsReducer = (state = initialState, action) => {
@@ -9,7 +9,6 @@ const settingsReducer = (state = initialState, action) => {
 		case 'SET_NOTIFICATION_ENABLED':
 			return { ...state, isNotificationEnabled: action.payload };
 		case 'SET_WEIGHT_UNIT':
-			console.log('New state after setting weight unit: ', { ...state, weightUnit: action.payload });
 			return { ...state, weightUnit: action.payload };
 		case 'SET_INACTIVE_DAYS':
 			return { ...state, inactiveDays: action.payload };

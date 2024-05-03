@@ -6,6 +6,7 @@ import colors from "../../common/colors";
 import NotificationRow from "../helpers/NotificationRow";
 import { Alert } from 'react-native';
 import * as Notifications from 'expo-notifications';
+import { scheduleInactiveUserNotification } from "../../common/helpers/registerInactiveUserNotification";
 
 const NotificationsModal = ({ modalVisible, setModalVisible, notificationsActive, setNotificationsActive, inactiveDays, setInactiveDays }) => {
 	const closeModal = () => {
@@ -21,17 +22,25 @@ const NotificationsModal = ({ modalVisible, setModalVisible, notificationsActive
 					"To receive notifications, please enable them in your system settings.",
 					[
 						{ text: "Cancel" },
+						// cannot open notification settings directly since the iOS doesn't provide a URL for that
 						{ text: "Settings", onPress: () => Linking.openURL('app-settings:') }
 					]
 				);
 			} else {
+				console.log("Notifications enabled")
 				setNotificationsActive(value);
+				await scheduleInactiveUserNotification(inactiveDays, true);
 			}
+		} else {
+			setNotificationsActive(value);
+			await Notifications.cancelAllScheduledNotificationsAsync();
+			await Notifications.setBadgeCountAsync(0);
 		}
 	}
 
 	const handleInactiveDaysChange = async (value) => {
 		setInactiveDays(value);
+		await scheduleInactiveUserNotification(value, notificationsActive);
 	}
 
 	return (
@@ -56,6 +65,7 @@ const NotificationsModal = ({ modalVisible, setModalVisible, notificationsActive
 					numberPickerValue={inactiveDays}
 					onNumberPickerValueChange={handleInactiveDaysChange} />
 			</View>
+
 		</CustomModal>
 	);
 }

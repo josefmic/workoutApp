@@ -12,27 +12,43 @@ import ExercisesList from "./ExercisesList";
 const AddRoutineModal = ({ modalVisible, setModalVisible }) => {
 
     const [exercisesOpen, setExercisesOpen] = useState(false)
-
+    const [workoutTitle, setWorkoutTitle] = useState("");
     const [exercises, setExercises] = useState([])
 
     return (
-        <CustomModal setModalVisible={setModalVisible} modalVisible={modalVisible} modalId={"add-routine-modal"}>
+        <CustomModal
+            setModalVisible={setModalVisible}
+            modalVisible={modalVisible}
+            modalId={"add-routine-modal"}
+            swipeOff={true}
+            onClose={() => {
+                setExercises([]);
+                setWorkoutTitle("");
+            }}
+        >
             <View style={styles.topButtonsContainer}>
                 <TopButton
                     onPress={() => {
                         setModalVisible(!setModalVisible)
-                        setExercises([])
                     }}
                     icon="circle-xmark"
                 />
                 <TextInput
                     style={styles.searchInput}
                     placeholder="Workout title..."
+                    value={workoutTitle}
+                    onChangeText={setWorkoutTitle}
                 />
                 <TopButton onPress={() => setExercisesOpen(true)} icon="circle-plus" />
             </View>
             {exercises.length > 0
-                ? <ExercisesList exercises={exercises}/>
+                ?
+                <ExercisesList
+                    exercises={exercises}
+                    setExercises={setExercises}
+                    workoutTitle={workoutTitle}
+                    setModalVisible={setModalVisible}
+                />
                 :
                 <View style={styles.addExerciseDiv}>
                     <Text style={styles.addExerciseTitle}>Add an exercise</Text>

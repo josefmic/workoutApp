@@ -6,9 +6,13 @@ import {cloneDeep} from "lodash";
 
 const AddExerciseModal = ({setExercisesOpen, exercisesOpen, exercises, setExercises}) => {
 
-    const handleAddExercise = (exercise) => {
-        setExercises([...exercises, cloneDeep(exercise)])
-        setExercisesOpen(false)
+    const handleAddExercise = (exerciseToAdd) => {
+        const isDuplicate = exercises.some(exercise => exercise.id === exerciseToAdd.id);
+
+        if (!isDuplicate) {
+            setExercises([...exercises, cloneDeep(exerciseToAdd)]);
+            setExercisesOpen(false);
+        }
     }
 
     return (

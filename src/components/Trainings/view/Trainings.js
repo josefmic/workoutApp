@@ -1,16 +1,19 @@
-import {View, Text, ScrollView} from "react-native";
+import {View, ScrollView} from "react-native";
 import ComponentHeader from "../../common/ComponentHeader";
 import RoutineList from "../routines/RoutineList";
 import TopButton from "../../common/buttons/TopButton";
 import styles from "./Trainings.styles"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AddRoutineModal from "../modals/AddRoutineModal";
+import {useDispatch, useSelector} from "react-redux";
+import {trainingsSelector} from "../reducer";
+import {getTrainingsFromStorage} from "../actions";
 
 const Trainings = () => {
     const [modalVisible, setModalVisible] = useState(false)
 
     return (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.addButtonContainer}>
                 <AddRoutineModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
                 <TopButton onPress={() => setModalVisible(true)} icon="circle-plus" />

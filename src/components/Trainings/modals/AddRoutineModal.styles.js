@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     exercisesDiv: {
         display: "flex",
         alignItems: "center",
-        height: "80%"
+        height: "90%"
     },
     addExerciseTitle: {
         color: colors.purple,
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
     tableText: {
+        fontSize: 18,
         textAlign: "center"
     },
     tableHeadText: {

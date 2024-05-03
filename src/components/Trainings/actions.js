@@ -46,3 +46,15 @@ export const getTrainingsFromStorage = () => {
         }
     };
 };
+
+export const ADD_TRAINING = 'ADD_TRAINING';
+export const addTraining = (newTraining) => {
+    return async (dispatch) => {
+        const response = await AsyncStorage.getItem(ROUTINES_KEY);
+        const currentTrainings = response !== null ? JSON.parse(response) : [];
+
+        const updatedTrainings = [...currentTrainings, newTraining];
+
+        dispatch(saveRoutinesToStorage(updatedTrainings));
+    };
+};

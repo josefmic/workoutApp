@@ -7,9 +7,9 @@ import colors from "../../common/colors";
 import { useSafeAreaStyles } from "../../common/View.styles";
 import { StyleSheet } from "react-native";
 import WorkoutSetRow from "../helpers/WorkoutSetRow";
-import Button from '../../common/buttons/Button'; // import Button
+import Button from '../../common/buttons/Button';
 
-const WorkoutDetailModal = ({ modalVisible, setModalVisible, workout, isAdded, onAdd }) => { // add isAdded and onAdd props
+const WorkoutDetailModal = ({ modalVisible, setModalVisible, workout, isAdded, onAdd }) => {
 	const commonStyles = useSafeAreaStyles();
 
 	return (
@@ -24,7 +24,7 @@ const WorkoutDetailModal = ({ modalVisible, setModalVisible, workout, isAdded, o
 			</View>
 			<View style={styles.descContainer}>
 				<View>
-					<Text style={styles.workoutName}>{workout.name}</Text>
+					<Text style={styles.workoutName}>{workout.title}</Text>
 					<Text style={styles.workoutTarget}>{workout.target}</Text>
 				</View>
 				{isAdded ? (

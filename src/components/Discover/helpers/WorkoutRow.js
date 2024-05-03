@@ -16,7 +16,7 @@ const WorkoutRow = ({ workout, onAdd, onClick, isAdded }) => {
 		<TouchableOpacity onPress={onClick}>
 			<View style={styles.container}>
 				<View style={styles.leftSide}>
-					<Text style={styles.workoutName}>{workout.name}</Text>
+					<Text style={styles.workoutName}>{workout.title}</Text>
 					<Text style={styles.workoutTarget}>{workout.target}</Text>
 				</View>
 				{isAdded ? (

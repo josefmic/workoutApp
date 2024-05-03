@@ -6,20 +6,30 @@ import { popularWorkouts, forBeginners, upperBodyOnly } from "../mockData/mockWo
 import styles from "./Discover.styles";
 import { useState } from "react";
 import WorkoutDetailModal from "../modals/WorkoutDetailModal";
-import { addWorkout, isWorkoutSaved } from "../mockData/mockStore"; //todo connect to actual redux store
+import {useDispatch, useSelector} from "react-redux";
+import {addTraining} from "../../Trainings/actions";
+import {trainingsSelector} from "../../Trainings/reducer";
+import {getTrainingsFromStorage} from "../../Trainings/actions"; //todo connect to actual redux store
 
 const Discover = () => {
+
+    const dispatch = useDispatch();
+    const trainings = useSelector(trainingsSelector);
+
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedWorkout, setSelectedWorkout] = useState(null);
 
     const commonStyles = useSafeAreaStyles();
 
-    const [isAdded, setIsAdded] = useState({});
-
     const handleAdd = (workout) => {
-        console.log(`Adding ${workout.name} from Discover page`);
-        addWorkout(workout);
-        setIsAdded(prevState => ({ ...prevState, [workout.name]: true }));
+        console.log(`Adding ${workout.title} from Discover page`);
+        dispatch(addTraining(workout));
+        dispatch(getTrainingsFromStorage());
+    }
+
+    const isWorkoutAdded = (workout) => {
+        console.log(trainings);
+        return trainings.some(training => training.title === workout.title);
     }
 
     const handleWorkoutClick = (workout) => {
@@ -41,7 +51,7 @@ const Discover = () => {
                         workout={workout}
                         onAdd={() => handleAdd(workout)}
                         onClick={() => handleWorkoutClick(workout)}
-                        isAdded={isAdded[workout.name]}
+                        isAdded={isWorkoutAdded(workout)}
                     />
                 ))}
             </View>
@@ -53,7 +63,7 @@ const Discover = () => {
                         workout={workout}
                         onAdd={() => handleAdd(workout)}
                         onClick={() => handleWorkoutClick(workout)}
-                        isAdded={isAdded[workout.name]}
+                        isAdded={isWorkoutAdded(workout)}
                     />
                 ))}
             </View>
@@ -65,11 +75,11 @@ const Discover = () => {
                         workout={workout}
                         onAdd={() => handleAdd(workout)}
                         onClick={() => handleWorkoutClick(workout)}
-                        isAdded={isAdded[workout.name]}
+                        isAdded={isWorkoutAdded(workout)}
                     />
                 ))}
             </View>
-            {modalVisible && <WorkoutDetailModal modalVisible={modalVisible} setModalVisible={setModalVisible} workout={selectedWorkout} isAdded={isAdded[selectedWorkout.name]} onAdd={() => handleAdd(selectedWorkout)} />}
+            {modalVisible && <WorkoutDetailModal modalVisible={modalVisible} setModalVisible={setModalVisible} workout={selectedWorkout} isAdded={isWorkoutAdded(selectedWorkout)} onAdd={() => handleAdd(selectedWorkout)} />}
         </ScrollView>
     )
 }

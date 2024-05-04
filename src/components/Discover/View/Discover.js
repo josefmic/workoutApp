@@ -28,7 +28,6 @@ const Discover = () => {
     }
 
     const isWorkoutAdded = (workout) => {
-        console.log(trainings);
         return trainings.some(training => training.title === workout.title);
     }
 

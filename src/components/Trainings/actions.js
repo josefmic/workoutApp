@@ -1,5 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {handleResponse} from "../../api/response";
 
 const ROUTINES_KEY = 'routines';
 
@@ -35,7 +34,11 @@ export const getTrainingsFromStorage = () => {
         try {
             const response = await AsyncStorage.getItem(ROUTINES_KEY);
             if (response !== null) {
-                const data = JSON.parse(response);
+                let data = JSON.parse(response);
+                data = data.map(routine => ({
+                    ...routine,
+                    creationDate: new Date(routine.creationDate).toISOString()
+                }));
                 dispatch({ type: GET_TRAININGS_SUCCESS, payload: data });
             } else {
                 dispatch({ type: GET_TRAININGS_SUCCESS, payload: [] });

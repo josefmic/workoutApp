@@ -2,13 +2,14 @@ import React from 'react';
 import {Share, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteRoutine, saveRoutinesToStorage} from "../actions";
+import {saveRoutinesToStorage} from "../actions";
 import Toast from "react-native-toast-message";
 import colors from "../../common/colors";
 import {trainingsSelector} from "../reducer";
 
 const RoutineMenu = ({ routine, showView, closeMenu, setIsRoutineDetailModalVisible, setIsAddRoutineModalVisible }) => {
     const dispatch = useDispatch();
+    const trainings = useSelector(trainingsSelector)
 
     const handleViewClick = () => {
         setIsRoutineDetailModalVisible(true);
@@ -50,7 +51,6 @@ const RoutineMenu = ({ routine, showView, closeMenu, setIsRoutineDetailModalVisi
     };
 
     const handleDeleteClick = () => {
-        const trainings = useSelector(trainingsSelector)
         dispatch(saveRoutinesToStorage(trainings.filter(r => r.id !== routine.id)));
         closeMenu();
     };

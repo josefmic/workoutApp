@@ -5,13 +5,13 @@ import {SafeAreaProvider} from "react-native-safe-area-context";
 import {Provider, useDispatch, useSelector} from "react-redux";
 import Toast from 'react-native-toast-message';
 import {store} from "./src/api/store";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { loadSettings } from "./src/components/Settings/actions";
 import {getExercises} from "./src/components/Exercises/actions";
 import {exercisesSelector} from "./src/components/Exercises/reducer";
 import {getTrainingsFromStorage} from "./src/components/Trainings/actions";
 import {DefaultTheme, NavigationContainer} from "@react-navigation/native";
-import globalStyles from "./src/components/common/GlobalStyles";
+import LottieView from "lottie-react-native";
 if (__DEV__) {
     require("./ReactotronConfig");
 }
@@ -36,8 +36,13 @@ const AppContent = () => {
 
     return isDataLoaded
         ? <AppNavigator />
-        : <View>
-            <Text>Loading...</Text>
+        : <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            <LottieView
+                source={require("./assets/loading-animation.json")}
+                style={{width: 150, height: 150}}
+                autoPlay
+                loop
+            />
         </View>
 };
 

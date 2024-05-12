@@ -10,6 +10,8 @@ import { loadSettings } from "./src/components/Settings/actions";
 import {getExercises} from "./src/components/Exercises/actions";
 import {exercisesSelector} from "./src/components/Exercises/reducer";
 import {getTrainingsFromStorage} from "./src/components/Trainings/actions";
+import {DefaultTheme, NavigationContainer} from "@react-navigation/native";
+import globalStyles from "./src/components/common/GlobalStyles";
 if (__DEV__) {
     require("./ReactotronConfig");
 }
@@ -39,12 +41,24 @@ const AppContent = () => {
         </View>
 };
 
+const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        background: 'white'
+    },
+};
+
 export default function App() {
     return (
         <Provider store={store}>
             <SafeAreaProvider>
-                <AppContent />
-                <Toast />
+                <NavigationContainer
+                    theme={MyTheme}
+                >
+                    <AppContent />
+                    <Toast />
+                </NavigationContainer>
             </SafeAreaProvider>
         </Provider>
     );

@@ -1,18 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CustomModal from '../../common/CustomModal';
 import {MaterialIcons} from "@expo/vector-icons";
 import colors from "../../common/colors";
 import ComponentHeader from "../../common/ComponentHeader";
-import {useSafeAreaStyles} from "../../common/View.styles";
 import SetRow from "./SetRow";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import RoutineMenu from "./RoutineMenu";
 import Popover, {PopoverPlacement} from "react-native-popover-view";
+import AddRoutineModal from "./AddRoutineModal";
 
 const RoutineDetailModal = ({ routine, modalVisible, setModalVisible }) => {
-    const commonStyles = useSafeAreaStyles();
     const date = new Date(routine.creationDate);
+    const [showRoutinePopover, setShowRoutinePopover] = useState(false);
+    const [isAddRoutineModalVisible, setIsAddRoutineModalVisible] = useState(false);
+
 
     return (
         <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible}>
@@ -31,16 +33,28 @@ const RoutineDetailModal = ({ routine, modalVisible, setModalVisible }) => {
                             <Text style={styles.workoutName}>{routine.title}</Text>
                             <Popover
                                 placement={PopoverPlacement.BOTTOM}
+                                isVisible={showRoutinePopover}
+                                onRequestClose={() => setShowRoutinePopover(false)}
                                 arrowSize={{ width: 0, height: 0 }}
                                 backgroundStyle={{ backgroundColor: "transparent" }}
-                                offset={-40}
-                                from={(sourceRef, showPopover) => (
-                                    <TouchableOpacity style={{ width: 30}} onPress={showPopover}>
+                                from={(sourceRef) => (
+                                    <TouchableOpacity style={{ width: 30, position: "absolute", right: 0, top: 0}} onPress={() => setShowRoutinePopover(true)}>
                                         <Icon name="ellipsis" size={25} color={colors.purple} />
                                     </TouchableOpacity>
                                 )}>
-                                <RoutineMenu routine={routine} showView={false} />
+                                <RoutineMenu
+                                    routine={routine}
+                                    showView={false}
+                                    closeMenu={() => setShowRoutinePopover(false)}
+                                    setIsRoutineDetailModalVisible={() => setIsRoutineDetailModalVisible(true)}
+                                    setIsAddRoutineModalVisible={() => setIsAddRoutineModalVisible(true)}
+                                />
                             </Popover>
+                            <AddRoutineModal
+                                modalVisible={isAddRoutineModalVisible}
+                                setModalVisible={setIsAddRoutineModalVisible}
+                                routine={routine}
+                            />
                         </View>
                         <Text style={styles.workoutTarget}>{routine.creationDate ? `Created ${date.toDateString()}` : ""}</Text>
                     </View>

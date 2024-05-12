@@ -16,30 +16,15 @@ const ExercisesList = ({ exercises, setExercises, workoutTitle, setModalVisible,
         const title = workoutTitle.trim() === "" ? "Untitled workout routine" : workoutTitle;
         const creationDate = new Date();
 
-        // Check if routine with the same title already exists
-        const existingRoutineIndex = trainings.findIndex(routine => routine.id === routineId);
-
-        let updatedTrainings;
-        if (existingRoutineIndex !== -1) {
-            // If routine exists, update it
-            updatedTrainings = [...trainings];
-            updatedTrainings[existingRoutineIndex] = {
-                ...updatedTrainings[existingRoutineIndex],
+        const updatedTrainings = [
+            ...(trainings.filter(routine => routine.id !== routineId) ?? []),
+            {
+                title: title,
                 exercises: exercises,
-                creationDate: creationDate.toString()
-            };
-        } else {
-            // If routine doesn't exist, add it
-            updatedTrainings = [
-                ...(trainings ?? []),
-                {
-                    title: title,
-                    exercises: exercises,
-                    creationDate: creationDate.toString(),
-                    id: Date.now().toString()
-                }
-            ];
-        }
+                creationDate: creationDate.toString(),
+                id: routineId ?? Date.now().toString()
+            }
+        ];
 
         dispatch(saveRoutinesToStorage(updatedTrainings));
         setModalVisible(false)

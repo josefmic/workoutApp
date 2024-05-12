@@ -10,11 +10,13 @@ import RoutineMenu from "../modals/RoutineMenu";
 import React, {useState} from "react";
 import RoutineDetailModal from "../modals/RoutineDetailModal";
 import AddRoutineModal from "../modals/AddRoutineModal";
+import StartRoutineModal from "../startRoutine/StartRoutineModal";
 
 const Routine = ({ routine }) => {
     const [showRoutinePopover, setShowRoutinePopover] = useState(false);
     const [isRoutineDetailModalVisible, setIsRoutineDetailModalVisible] = useState(false);
     const [isAddRoutineModalVisible, setIsAddRoutineModalVisible] = useState(false);
+    const [isStartRoutineModalVisible, setIsStartRoutineModalVisible] = useState(false);
 
     return (
         <View style={styles.container}>
@@ -54,16 +56,22 @@ const Routine = ({ routine }) => {
                     modalVisible={isAddRoutineModalVisible}
                     setModalVisible={setIsAddRoutineModalVisible}
                     routine={routine}
+                    key={`add-routine-modal-${routine.id}`}
                 />
                 <RoutineDetailModal
-                    key={routine.title}
+                    key={routine.id}
                     routine={routine}
                     modalVisible={isRoutineDetailModalVisible}
                     setModalVisible={setIsRoutineDetailModalVisible}
                 />
                 <View style={{ position: "absolute", bottom: -10, right: -10 }}>
-                    <Button title="Start" />
+                    <Button title="Start" onPress={() => setIsStartRoutineModalVisible(true)} />
                 </View>
+                <StartRoutineModal
+                    routine={routine}
+                    modalVisible={isStartRoutineModalVisible}
+                    setModalVisible={setIsStartRoutineModalVisible}
+                />
             </View>
         </View>
     )

@@ -9,9 +9,10 @@ import { View } from "react-native";
 import { loadSettings } from "./src/components/Settings/actions";
 import {getExercises} from "./src/components/Exercises/actions";
 import {exercisesSelector} from "./src/components/Exercises/reducer";
-import {getTrainingsFromStorage} from "./src/components/Trainings/actions";
+import {getHistoryFromStorage, getTrainingsFromStorage} from "./src/components/Trainings/actions";
 import {DefaultTheme, NavigationContainer} from "@react-navigation/native";
 import LottieView from "lottie-react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 if (__DEV__) {
     require("./ReactotronConfig");
 }
@@ -25,6 +26,7 @@ const AppContent = () => {
         dispatch(loadSettings());
         dispatch(getExercises());
         dispatch(getTrainingsFromStorage());
+        dispatch(getHistoryFromStorage());
     }, [dispatch]);
 
     let [fontsLoaded] = useFonts({

@@ -7,7 +7,6 @@ export const useSafeAreaStyles = () => {
     return StyleSheet.create({
         container: {
             flex: 1,
-            paddingBottom: insets.bottom,
             paddingTop: insets.top,
         },
         content: {

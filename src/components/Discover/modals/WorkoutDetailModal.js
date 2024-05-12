@@ -10,43 +10,53 @@ import WorkoutSetRow from "../helpers/WorkoutSetRow";
 import Button from '../../common/buttons/Button';
 import TopButton from "../../common/buttons/TopButton";
 
-const WorkoutDetailModal = ({ modalVisible, setModalVisible, workout, isAdded, onAdd }) => {
+const WorkoutDetailModal = ({ setSelectedWorkout, workout, isAdded, onAdd, setModalVisible, modalVisible }) => {
 	const commonStyles = useSafeAreaStyles();
 
 	return (
-		<CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible}>
-			<View style={commonStyles.headerContainer}>
-				<View style={styles.arrowBackWrapper}>
-					<TopButton onPress={() => setModalVisible(false)} icon="chevron-left" />
-				</View>
-				<ComponentHeader title={"Workout Routine"} />
-			</View>
-			<View style={styles.descContainer}>
+		<CustomModal
+			setModalVisible={setModalVisible}
+			modalVisible={modalVisible}
+			modalId={"workout-detail-modal"}
+			swipeOff={true}
+			onClose={() => {
+				setSelectedWorkout(null);
+			}}
+		>
 				<View>
-					<Text style={styles.workoutName}>{workout.title}</Text>
-					<Text style={styles.workoutTarget}>{workout.target}</Text>
-				</View>
-				{isAdded ? (
-					<View style={styles.iconWrapper}>
-						<MaterialIcons name="check" size={24} color="green" style={styles.icon}/>
-						<Text style={{color: "green"}}>Added</Text>
+				<View style={commonStyles.headerContainer}>
+					<View style={styles.arrowBackWrapper}>
+						<TopButton onPress={() => setModalVisible(false)} icon="chevron-left" />
 					</View>
-				) : (
-					<Button title="Add" onClick={onAdd} />
-				)}
-			</View>
+					<ComponentHeader title={"Workout Routine"} />
+				</View>
+				<View style={styles.descContainer}>
+					<View>
+						<Text style={styles.workoutName}>{workout.title}</Text>
+						<Text style={styles.workoutTarget}>{workout.target}</Text>
+					</View>
+					{isAdded ? (
+						<View style={styles.iconWrapper}>
+							<MaterialIcons name="check" size={24} color="green" style={styles.icon}/>
+							<Text style={{color: "green"}}>Added</Text>
+						</View>
+					) : (
+						<Button title="Add" onClick={onAdd} />
+					)}
+				</View>
 
-			{workout.exercises.map((exercise, index) => (
-				<View key={index}>
-					<Text style={styles.exerciseName}>{exercise.name}</Text>
-					<View style={styles.setsContainer}>
-						<WorkoutSetRow set={{number: "SET", weight: "WEIGHT", reps: "REPS"}} />
-						{exercise.sets.map((set, index) => (
-							<WorkoutSetRow set={set} key={index}/>
-						))}
+				{workout.exercises.map((exercise, index) => (
+					<View key={index}>
+						<Text style={styles.exerciseName}>{exercise.name}</Text>
+						<View style={styles.setsContainer}>
+							<WorkoutSetRow set={{number: "SET", weight: "WEIGHT", reps: "REPS"}} />
+							{exercise.sets.map((set, index) => (
+								<WorkoutSetRow set={set} key={index}/>
+							))}
+						</View>
 					</View>
+				))}
 				</View>
-			))}
 		</CustomModal>
 	);
 };

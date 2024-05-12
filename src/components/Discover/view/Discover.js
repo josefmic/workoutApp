@@ -77,7 +77,7 @@ const Discover = () => {
                     />
                 ))}
             </View>
-            {modalVisible && <WorkoutDetailModal modalVisible={modalVisible} setModalVisible={setModalVisible} workout={selectedWorkout} isAdded={isWorkoutAdded(selectedWorkout)} onAdd={() => handleAdd(selectedWorkout)} />}
+            {selectedWorkout ? <WorkoutDetailModal setSelectedWorkout={setSelectedWorkout} workout={selectedWorkout} isAdded={isWorkoutAdded(selectedWorkout)} onAdd={() => handleAdd(selectedWorkout)} setModalVisible={setModalVisible} modalVisible={modalVisible} /> : null}
         </ScrollView>
     )
 }

@@ -7,7 +7,6 @@ export const useSafeAreaStyles = () => {
     return StyleSheet.create({
         container: {
             flex: 1,
-            paddingBottom: insets.bottom,
             paddingTop: insets.top,
         },
         content: {
@@ -18,6 +17,12 @@ export const useSafeAreaStyles = () => {
         modalContent: {
             paddingHorizontal: 25,
             backgroundColor: "white"
+        },
+        headerContainer: {
+            width: 364,
+            height: 97,
+            display: 'flex',
+            justifyContent: "flex-end",
         },
     });
 };

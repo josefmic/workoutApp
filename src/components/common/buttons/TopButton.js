@@ -5,7 +5,7 @@ import colors from "../colors";
 const TopButton = ({ onPress, icon }) => {
     return (
         <TouchableOpacity
-            style={{paddingTop: 10, paddingBottom: 10, height: 60}}
+            style={{paddingTop: 10, paddingBottom: 10, height: 55}}
             onPress={() => onPress()}
         >
             <Icon name={icon} size={35} color={colors.purple} />

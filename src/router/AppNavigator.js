@@ -3,8 +3,9 @@ import Icon from "react-native-vector-icons/FontAwesome6";
 import tabs from "./tabs.js";
 import colors from "../components/common/colors";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {SafeAreaView, View} from "react-native";
+import {View} from "react-native";
 import {useSafeAreaStyles} from "../components/common/View.styles";
+import styles from "./AppNavigator.styles";
 
 const AppNavigator = () => {
 

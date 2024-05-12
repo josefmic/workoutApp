@@ -9,6 +9,7 @@ import {exercisesSelector} from "../reducer";
 import ExercisesFilter from "./ExercisesFilter";
 import handleFilterExercises from "../helpers/handleFilterExercises";
 import handleRenderExerciseItem from "../helpers/handleRenderExerciseItem";
+import globalStyles from "../../common/GlobalStyles";
 
 const Exercises = ({ onClick }) => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -18,7 +19,7 @@ const Exercises = ({ onClick }) => {
     const filteredExercises = handleFilterExercises(data, searchQuery, filterQuery)
 
     return (
-        <View>
+        <View style={globalStyles.defaultPadding}>
             <ComponentHeader title={"Exercises"} />
             <View style={styles.topContainer}>
                 <View style={styles.searchContainer}>
@@ -44,6 +45,7 @@ const Exercises = ({ onClick }) => {
                         }
                     }}
                     showsVerticalScrollIndicator={false}
+                    ListFooterComponent={<View style={{ height: 200 }} />}
                 />
             </View>
         </View>

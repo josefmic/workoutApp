@@ -56,6 +56,16 @@ const styles = StyleSheet.create({
     numberedList: {
         marginLeft: 16,
     },
+    filteredIcon: {
+        shadowColor: colors.purple,
+        shadowOpacity: 1,
+        shadowRadius: 10,
+        shadowOffset: {
+            width: 0,
+            height: 0,
+        },
+        elevation: 5,
+    },
 });
 
 export default styles

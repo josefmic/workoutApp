@@ -9,7 +9,7 @@ import {equipmentOptions, muscleOptions} from "../helpers/exerciseFilterOptions"
 import Button from "../../common/buttons/Button";
 
 
-const FilterModal = ({ modalVisible, setModalVisible, setQuery }) => {
+const FilterModal = ({ modalVisible, setModalVisible, setQuery, query }) => {
     const [muscle, setMuscle] = useState()
     const [equipment, setEquipment] = useState()
 

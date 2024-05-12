@@ -1,9 +1,10 @@
 import {View, Text, StyleSheet, ScrollView} from "react-native";
 import ComponentHeader from "../common/ComponentHeader";
+import globalStyles from "../common/GlobalStyles";
 
 const Discover = () => {
     return (
-        <ScrollView>
+        <ScrollView style={globalStyles.defaultPadding}>
             <ComponentHeader title={"Discover"} />
             <View>
                 <Text>Test</Text>

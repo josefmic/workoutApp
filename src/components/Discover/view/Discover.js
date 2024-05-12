@@ -7,9 +7,9 @@ import styles from "./Discover.styles";
 import { useState } from "react";
 import WorkoutDetailModal from "../modals/WorkoutDetailModal";
 import {useDispatch, useSelector} from "react-redux";
-import {addTraining} from "../../Trainings/actions";
+import {saveRoutinesToStorage} from "../../Trainings/actions";
 import {trainingsSelector} from "../../Trainings/reducer";
-import {getTrainingsFromStorage} from "../../Trainings/actions"; //todo connect to actual redux store
+import globalStyles from "../../common/GlobalStyles";
 
 const Discover = () => {
 
@@ -23,8 +23,7 @@ const Discover = () => {
 
     const handleAdd = (workout) => {
         console.log(`Adding ${workout.title} from Discover page`);
-        dispatch(addTraining(workout));
-        dispatch(getTrainingsFromStorage());
+        dispatch(saveRoutinesToStorage([...trainings, workout]))
     }
 
     const isWorkoutAdded = (workout) => {
@@ -37,7 +36,7 @@ const Discover = () => {
     }
 
     return (
-        <ScrollView>
+        <ScrollView style={globalStyles.defaultPadding}>
             <View style={commonStyles.headerContainer}>
                 <ComponentHeader title={"Discover"} />
             </View>

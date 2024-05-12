@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import ComponentHeader from '../../common/ComponentHeader';
 import CustomModal from '../../common/CustomModal';
 import { MaterialIcons } from "@expo/vector-icons";
@@ -8,6 +8,7 @@ import { useSafeAreaStyles } from "../../common/View.styles";
 import { StyleSheet } from "react-native";
 import WorkoutSetRow from "../helpers/WorkoutSetRow";
 import Button from '../../common/buttons/Button';
+import TopButton from "../../common/buttons/TopButton";
 
 const WorkoutDetailModal = ({ modalVisible, setModalVisible, workout, isAdded, onAdd }) => {
 	const commonStyles = useSafeAreaStyles();
@@ -16,9 +17,7 @@ const WorkoutDetailModal = ({ modalVisible, setModalVisible, workout, isAdded, o
 		<CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible}>
 			<View style={commonStyles.headerContainer}>
 				<View style={styles.arrowBackWrapper}>
-					<TouchableOpacity onPress={() => setModalVisible(false)}>
-						<MaterialIcons name="arrow-back" size={24} color={colors.purple} />
-					</TouchableOpacity>
+					<TopButton onPress={() => setModalVisible(false)} icon="chevron-left" />
 				</View>
 				<ComponentHeader title={"Workout Routine"} />
 			</View>

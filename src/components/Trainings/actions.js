@@ -87,12 +87,6 @@ export const getHistoryFromStorage = () => {
             const response = await AsyncStorage.getItem(HISTORY_KEY);
             if (response !== null) {
                 let data = JSON.parse(response);
-                console.log(data)
-                data = data.map(history => ({
-                    ...history,
-                    start: new Date(history.start).toISOString(),
-                    finish: new Date(history.finish).toISOString(),
-                }));
                 dispatch({ type: GET_HISTORY_SUCCESS, payload: data });
             } else {
                 dispatch({ type: GET_HISTORY_SUCCESS, payload: [] });

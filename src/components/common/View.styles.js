@@ -15,7 +15,7 @@ export const useSafeAreaStyles = () => {
             paddingTop: 10,
         },
         modalContent: {
-            paddingHorizontal: 25,
+            paddingHorizontal: 15,
             backgroundColor: "white"
         },
         headerContainer: {

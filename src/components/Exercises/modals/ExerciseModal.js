@@ -20,7 +20,9 @@ const ExerciseModal = ({ modalVisible, setModalVisible, item }) => {
                         <ModalInfoText title="Equipment: " body={capitalizeFirstLetter(item?.equipment ?? "None")} />
                         <ModalInfoText title="Instructions: " body={capitalizeFirstLetter(item?.instructions ?? "")} direction="column" />
 
-                        <Image source={{ uri: item?.gifUrl }} style={{width: 300, height: 300}} />
+                        <View style={{ flex: 1 }}>
+                            <Image source={{ uri: item?.gifUrl }} style={{width: 300, height: 300}} />
+                        </View>
                     </>
                 )}
             </ScrollView>

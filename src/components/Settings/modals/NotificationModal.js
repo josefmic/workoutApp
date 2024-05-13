@@ -5,6 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import CustomModal from "../../common/CustomModal";
 import colors from "../../common/colors";
 import NotificationRow from "../helpers/NotificationRow";
+import TopButton from "../../common/buttons/TopButton";
 
 const NotificationsModal = ({ modalVisible, setModalVisible, notificationsActive, setNotificationsActive, inactiveDays, setInactiveDays }) => {
 	const closeModal = () => {
@@ -14,11 +15,9 @@ const NotificationsModal = ({ modalVisible, setModalVisible, notificationsActive
 	return (
 		<CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible}>
 			<View style={styles.container}>
-				<TouchableOpacity onPress={closeModal}>
-					<MaterialIcons name="arrow-back" size={24} color={colors.purple} />
-				</TouchableOpacity>
+				<TopButton onPress={closeModal} icon="chevron-left" />
 				<Text style={styles.title}>Notifications</Text>
-				<View />
+				<View style={{width: 25}}/>
 			</View>
 			<View style={styles.sectionContainer}>
 				<Text style={styles.sectionTitle}>System default</Text>

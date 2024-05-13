@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Dimensions, View, StyleSheet, TouchableWithoutFeedback} from "react-native";
 import {useSafeAreaStyles} from "./View.styles";
 import Modal from "react-native-modal";
@@ -27,12 +27,20 @@ const CustomModal = (
 
     const modalHeight = Dimensions.get('window').height * height;
     const {animationIn, animationOut} = handleModalAnimation(animation);
+    const [firstLoad, setFirstLoad] = useState(false);
+
 
     const handleBackdropPress = () => {
         if (animation === "Up" || animation === "Down") {
             setModalVisible(false);
         }
     };
+
+    useEffect(() => {
+        if (modalVisible) {
+            setFirstLoad(true)
+        }
+    }, [modalVisible]);
 
     return (
         <GestureRecognizer
@@ -51,21 +59,23 @@ const CustomModal = (
                 style={{justifyContent: 'flex-end', margin: 0}}
                 onModalHide={onClose}
             >
-                {height !== 1 &&
+                {(modalVisible || firstLoad) && height !== 1 &&
                     <TouchableWithoutFeedback onPress={handleBackdropPress}>
-                        <View style={{flex: 1}}/>
+                        <View style={{ flex: 1 }} />
                     </TouchableWithoutFeedback>
                 }
-                <View
-                    style={{
-                        ...safeAreaStyles.container,
-                        ...safeAreaStyles.modalContent,
-                        maxHeight: modalHeight,
-                        ...(StyleSheet.create(customStyles))
-                    }}
-                >
-                    {children}
-                </View>
+                {(modalVisible || firstLoad) &&
+                    <View
+                        style={{
+                            ...safeAreaStyles.container,
+                            ...safeAreaStyles.modalContent,
+                            maxHeight: modalHeight,
+                            ...(StyleSheet.create(customStyles))
+                        }}
+                    >
+                        {children}
+                    </View>
+                }
             </Modal>
         </GestureRecognizer>
     )

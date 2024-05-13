@@ -51,7 +51,7 @@ const Exercises = ({ onClick }) => {
                         }
                     }}
                     showsVerticalScrollIndicator={false}
-                    ListFooterComponent={<View style={{ height: 200 }} />}
+                    ListFooterComponent={<View style={{ height: 350 }} />}
                 />
             </View>
         </View>

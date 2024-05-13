@@ -4,9 +4,11 @@ import globalStyles from "../../common/GlobalStyles";
 import HistoryCard from "./HistoryCard";
 import {useSelector} from "react-redux";
 import {historySelector} from "../../Trainings/reducer";
+import {useSafeAreaStyles} from "../../common/View.styles";
 
 const History = () => {
     const historyData = useSelector(historySelector);
+    const commonStyles = useSafeAreaStyles()
 
     // const historyData = [{
     //     exercises: [
@@ -40,7 +42,9 @@ const History = () => {
 
     return (
         <ScrollView style={globalStyles.defaultPadding}>
-            <ComponentHeader title={"History"} />
+            <View style={commonStyles.headerContainer}>
+                <ComponentHeader title={"History"} />
+            </View>
             <View style={styles.body}>
                 {historyData.map((history, index) => {
                     return (<HistoryCard key={index} history={history} />)

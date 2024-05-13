@@ -23,7 +23,7 @@ const Discover = () => {
 
     const handleAdd = (workout) => {
         console.log(`Adding ${workout.title} from Discover page`);
-        dispatch(saveRoutinesToStorage([...trainings, workout]))
+        dispatch(saveRoutinesToStorage([...trainings, {...workout, id: Date.now().toString()}]))
     }
 
     const isWorkoutAdded = (workout) => {

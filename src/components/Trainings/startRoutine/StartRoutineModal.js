@@ -8,9 +8,6 @@ import TickIcon from "./TickIcon";
 import NextExerciseButton from "./NextExerciseButton";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import {cloneDeep} from "lodash";
-import {historySelector} from "../reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {saveHistoryToStorage} from "../actions";
 import SaveToHistoryModal from "../modals/SaveToHistoryModal";
 
 
@@ -34,6 +31,9 @@ const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
 
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+
     const addRow = () => {
         const newRow = [String(tableData.length + 1), "-", "-", ""];
         setTableData([...tableData, newRow]);
@@ -43,6 +43,20 @@ const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
         const newData = [...tableData];
         newData[rowIndex][columnIndex] = text;
         setTableData(newData);
+    };
+
+    const resetData = () => {
+        setCurrentExerciseIndex(0);
+        setSeconds(0);
+        setIsTimerPaused(false);
+        setStartTime(null);
+        setFinishTime(null);
+        setExercisesFinishData([]);
+        setIsSaveToHistoryModalVisible(false);
+        const currentExerciseCopy = cloneDeep(currentExercise);
+        setTableData(
+            currentExerciseCopy.sets.map((set, index) => [String(index + 1), set[1] || "-", set[2] || "-", ""])
+        );
     };
 
     const endExercise = () => {
@@ -102,12 +116,7 @@ const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
             onClose={() => {
-                setSeconds(0);
-                setCurrentExerciseIndex(0);
-                setExercisesFinishData([]);
-                setStartTime(null);
-                setFinishTime(null);
-                setTableData([]);
+                resetData()
             }}
         >
             <View style={styles.topWrapper}>
@@ -186,7 +195,7 @@ const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
                         routineName: routine.title,
                         start: startTime?.toLocaleString(),
                         finish: finishTime?.toLocaleString(),
-                        timer: `${minutes}:${remainingSeconds}`,
+                        timer: `${formattedMinutes}:${formattedSeconds}`,
                         exercises: exercisesFinishData
                     }
                 }/>

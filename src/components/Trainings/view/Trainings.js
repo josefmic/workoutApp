@@ -18,7 +18,7 @@ const Trainings = () => {
             </View>
             <ComponentHeader title={"Workout Routines"}/>
             <View>
-                <RoutineList/>
+                <RoutineList />
             </View>
         </ScrollView>
     )

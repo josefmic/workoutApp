@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import Popover, {PopoverPlacement} from "react-native-popover-view";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import colors from "../../common/colors";
 import HistoryMenu from "../modals/HistoryMenu";
 import HistoryDetailModal from "../modals/HistoryDetailModal";
+import RoutineMenu from "../../Trainings/modals/RoutineMenu";
+import Tooltip from "react-native-walkthrough-tooltip";
 
 const HistoryCard = ({ history }) => {
 const [showRoutinePopover, setShowRoutinePopover] = useState(false);
@@ -15,23 +16,26 @@ const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
             <View style={styles.topWrapper}>
                 <View style={styles.topRow}>
                     <Text style={styles.trainingName}>{history.routineName}</Text>
-                    <Popover
-                        placement={PopoverPlacement.BOTTOM}
+                    <Tooltip
                         isVisible={showRoutinePopover}
-                        onRequestClose={() => setShowRoutinePopover(false)}
-                        arrowSize={{ width: 0, height: 0 }}
-                        backgroundStyle={{ backgroundColor: "transparent" }}
-                        offset={-40}
-                        from={(sourceRef) => (
-                            <TouchableOpacity style={{ width: 30, position: "absolute", right: 0, top: 0}} onPress={() => setShowRoutinePopover(true)}>
-                                <Icon name="ellipsis" size={25} color={colors.purple} />
-                            </TouchableOpacity>
-                        )}>
-                        <HistoryMenu
-                            history={history}
-                            setIsDetailModalVisible={() => setIsDetailModalVisible(true)}
-                        />
-                    </Popover>
+                        onClose={() => setShowRoutinePopover(false)}
+                        content={
+                            <HistoryMenu
+                                history={history}
+                                setIsDetailModalVisible={() => setIsDetailModalVisible(true)}
+                            />
+                        }
+                        placement="bottom"
+                        backgroundStyle={{ backgroundColor: 'transparent' }}
+                        contentStyle={{ padding: 0, paddingTop: 10 }}
+                        popoverStyle={{ padding: 0 }}
+                        disableShadow={true}
+                        backgroundColor={"transparent"}
+                    >
+                        <TouchableOpacity style={{ width: 30, position: "absolute", right: 0, top: 0}} onPress={() => setShowRoutinePopover(true)}>
+                            <Icon name="ellipsis" size={25} color={colors.purple} />
+                        </TouchableOpacity>
+                    </Tooltip>
                     <HistoryDetailModal
                         history={history}
                         modalVisible={isDetailModalVisible}

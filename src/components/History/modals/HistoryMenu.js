@@ -3,8 +3,13 @@ import {Share, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome";
 import colors from "../../common/colors";
 import Toast from "react-native-toast-message";
+import {saveHistoryToStorage} from "../../Trainings/actions";
+import {useDispatch, useSelector} from "react-redux";
+import {historySelector} from "../../Trainings/reducer";
 
 const HistoryMenu = ({ history, setIsDetailModalVisible }) => {
+    const dispatch = useDispatch();
+    const allHistory = useSelector(historySelector)
 
     const handleViewClick = () => {
         setIsDetailModalVisible(true);
@@ -38,15 +43,14 @@ const HistoryMenu = ({ history, setIsDetailModalVisible }) => {
         }
     };
 
-    // const handleDeleteClick = () => {
-    //     dispatch(saveRoutinesToStorage(trainings.filter(r => r.id !== routine.id)));
-    //     closeMenu();
-    // };
+    const handleDeleteClick = () => {
+        dispatch(saveHistoryToStorage(allHistory.filter(h => h.start !== history.start)));
+    };
 
     const options = [
         { name: 'View', icon: 'eye', action: handleViewClick },
         { name: 'Share', icon: 'share', action: handleShareClick },
-        { name: 'Delete', icon: 'trash', action: handleViewClick },
+        { name: 'Delete', icon: 'trash', action: handleDeleteClick },
     ];
 
     return (

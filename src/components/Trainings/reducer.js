@@ -5,6 +5,7 @@ import {
 
 const STATE_INITIAL = {
     trainings: [],
+    history: [],
 };
 
 export function TrainingsReducer(state = STATE_INITIAL, action) {
@@ -25,4 +26,4 @@ export function TrainingsReducer(state = STATE_INITIAL, action) {
 }
 
 export const trainingsSelector = (state) => state.trainings?.trainings ?? []
-export const historySelector = (state) => state.history?.history ?? []
+export const historySelector = (state) => state.trainings?.history ?? []

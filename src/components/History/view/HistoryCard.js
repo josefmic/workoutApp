@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Popover, {PopoverPlacement} from "react-native-popover-view";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import colors from "../../common/colors";
-import RoutineMenu from "../../Trainings/modals/RoutineMenu";
+import HistoryMenu from "../modals/HistoryMenu";
+import HistoryDetailModal from "../modals/HistoryDetailModal";
 
 const HistoryCard = ({ history }) => {
 const [showRoutinePopover, setShowRoutinePopover] = useState(false);
+const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
 
     return (
         <View style={styles.card}>
@@ -25,11 +27,16 @@ const [showRoutinePopover, setShowRoutinePopover] = useState(false);
                                 <Icon name="ellipsis" size={25} color={colors.purple} />
                             </TouchableOpacity>
                         )}>
-                        <RoutineMenu
-                            showView={true}
-                            closeMenu={() => setShowRoutinePopover(false)}
+                        <HistoryMenu
+                            history={history}
+                            setIsDetailModalVisible={() => setIsDetailModalVisible(true)}
                         />
                     </Popover>
+                    <HistoryDetailModal
+                        history={history}
+                        modalVisible={isDetailModalVisible}
+                        setModalVisible={setIsDetailModalVisible}
+                    />
                 </View>
                 <View style={styles.topRow}>
                     <Text style={styles.secondRow}>{history.finish}</Text>
@@ -49,7 +56,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         width: "100%",
         padding: 16,
-        backgroundColor: "#D8D8D8",
+        backgroundColor: "#F1F4F8",
         borderRadius: 8,
     },
     topWrapper: {
@@ -57,6 +64,8 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        borderBottomWidth: 1,
+        borderBottomColor: "#DCDCDC",
     },
     topRow: {
         display: "flex",
@@ -72,8 +81,15 @@ const styles = StyleSheet.create({
     secondRow: {
         fontSize: 12,
         color: colors.grey,
-    }
-
+    },
+    photo: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 16,
+        height: 300,
+    },
 })
 
 export default HistoryCard;

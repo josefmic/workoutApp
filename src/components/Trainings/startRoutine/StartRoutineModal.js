@@ -56,7 +56,6 @@ const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
         setIsTimerPaused(true)
         setFinishTime(new Date());
         setIsSaveToHistoryModalVisible(true);
-        // createExerciseObject()
     }
 
     const nextExercise = () => {
@@ -99,7 +98,18 @@ const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
     }, [currentExerciseIndex]);
 
     return (
-        <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible}>
+        <CustomModal
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            onClose={() => {
+                setSeconds(0);
+                setCurrentExerciseIndex(0);
+                setExercisesFinishData([]);
+                setStartTime(null);
+                setFinishTime(null);
+                setTableData([]);
+            }}
+        >
             <View style={styles.topWrapper}>
                 <View style={{width: 115}}>
                     <Button title={isTimerPaused ? "Resume" : "Pause"} onClick={() => setIsTimerPaused(!isTimerPaused)} />
@@ -173,7 +183,7 @@ const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
                 setStartExerciseModalVisible={setModalVisible}
                 historyObject={
                     {
-                        routineName: routine.name,
+                        routineName: routine.title,
                         start: startTime?.toLocaleString(),
                         finish: finishTime?.toLocaleString(),
                         timer: `${minutes}:${remainingSeconds}`,

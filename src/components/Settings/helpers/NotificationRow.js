@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Switch, TextInput } from 'react-native';
 import colors from "../../common/colors";
 
 const NotificationRow = ({ text, isSwitch, switchValue, onSwitchValueChange, isNumberPicker, numberPickerValue, onNumberPickerValueChange }) => {
+	const [localNumberPickerValue, setLocalNumberPickerValue] = useState(numberPickerValue);
+
+	const handleNumberPickerValueChange = (value) => {
+		setLocalNumberPickerValue(value);
+	}
+
+	const handleEndEditing = () => {
+		if (localNumberPickerValue === '') {
+			setLocalNumberPickerValue(numberPickerValue);
+		} else {
+			onNumberPickerValueChange(Number(localNumberPickerValue));
+		}
+	}
+
 	return (
 		<View style={styles.row}>
 			<Text style={styles.text}>{text}</Text>
 			{isSwitch && <Switch value={switchValue} onValueChange={onSwitchValueChange} trackColor={{ false: "#767577", true: colors.purple }} />}
-			{isNumberPicker && <TextInput style={styles.numberPicker} keyboardType='numeric' value={numberPickerValue.toString()} onChangeText={onNumberPickerValueChange} />}
+			{isNumberPicker && <TextInput style={styles.numberPicker} keyboardType='numeric' value={localNumberPickerValue.toString()} onChangeText={handleNumberPickerValueChange} onEndEditing={handleEndEditing} />}
 		</View>
 	);
 }

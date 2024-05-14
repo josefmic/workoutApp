@@ -1,6 +1,7 @@
 import { View, Text } from "react-native";
 import React from "react";
 import styles from "./ExerciseModal.styles";
+import globalStyles from "../../common/GlobalStyles";
 
 const ModalInfoText = ({ title, body, direction = "row" }) => {
     const renderBody = () => {
@@ -9,22 +10,22 @@ const ModalInfoText = ({ title, body, direction = "row" }) => {
                 <View>
                     {body.map((item, index) => (
                         <View style={{ marginVertical: 5 }} key={`exercise-text-${index}`}>
-                            <Text key={index} style={styles.numberedList}>
+                            <Text key={index} style={{...styles.numberedList, ...globalStyles.defaultText}}>
                                 <Text style={{ fontWeight: "bold" }}>{`${index + 1}. `}</Text>
-                                {item}
+                                <Text>{item}</Text>
                             </Text>
                         </View>
                     ))}
                 </View>
             );
         } else {
-            return <Text>{body}</Text>;
+            return <Text style={globalStyles.defaultText}>{body}</Text>;
         }
     };
 
     return (
         <View style={{ ...styles.infoTextContainer, flexDirection: direction }}>
-            <Text style={styles.infoTextTitle}>{title}</Text>
+            <Text style={{...styles.infoTextTitle, ...globalStyles.defaultText}}>{title}</Text>
             {renderBody()}
         </View>
     );

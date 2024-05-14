@@ -3,8 +3,8 @@ import styles from "../view/Exercises.styles";
 import Exercise from "../view/Exercise";
 import React from "react";
 
-const handleRenderExerciseItem = ({item, onClick}) => {
-    if (item.isLetter) {
+function handleRenderExerciseItem(item, onClick) {
+    if (item?.isLetter) {
         return (
             <View style={styles.letterContainer}>
                 <Text style={styles.letter}>{item.letter}</Text>

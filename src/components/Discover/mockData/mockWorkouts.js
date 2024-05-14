@@ -1,6 +1,6 @@
 export const popularWorkouts = [
 	{
-		name: 'Simple Six-Pack',
+		title: 'Simple Six-Pack',
 		target: 'Abs',
 		exercises: [
 			{
@@ -22,7 +22,7 @@ export const popularWorkouts = [
 		]
 	},
 	{
-		name: 'Sleever Buster',
+		title: 'Sleever Buster',
 		target: 'Arms',
 		exercises: [
 			{
@@ -39,7 +39,7 @@ export const popularWorkouts = [
 
 export const forBeginners = [
 	{
-		name: 'Stranger Shoulders',
+		title: 'Stranger Shoulders',
 		target: 'Shoulders',
 		exercises: [
 			{
@@ -54,7 +54,7 @@ export const forBeginners = [
 		]
 	},
 	{
-		name: 'Healthy Back',
+		title: 'Healthy Back',
 		target: 'Back',
 		exercises: [
 			{
@@ -68,7 +68,7 @@ export const forBeginners = [
 		]
 	},
 	{
-		name: 'Full Body beginner',
+		title: 'Full Body beginner',
 		target: 'Full body',
 		exercises: [
 			{
@@ -85,7 +85,7 @@ export const forBeginners = [
 
 export const upperBodyOnly = [
 	{
-		name: 'Upper Body Blast',
+		title: 'Upper Body Blast',
 		target: 'Abs',
 		exercises: [
 			{
@@ -99,7 +99,7 @@ export const upperBodyOnly = [
 		]
 	},
 	{
-		name: 'Upper Body Pump',
+		title: 'Upper Body Pump',
 		target: 'Arms, Shoulders, Abs',
 		exercises: [
 			{

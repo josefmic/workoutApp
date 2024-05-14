@@ -11,7 +11,7 @@ export const getExercises = () => {
         });
 
         try {
-            const response = await fetch(`${process.env.RAPID_API_URL}/exercises?limit=10000`, {
+            const response = await fetch(`${process.env.RAPID_API_URL}/exercises?limit=1500`, {
                 headers: {
                     'X-RapidAPI-Key': process.env.RAPID_API_KEY,
                     'X-RapidAPI-Host': process.env.RAPID_API_HOST,

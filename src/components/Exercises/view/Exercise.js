@@ -1,4 +1,5 @@
 import styles from "./Exercises.styles";
+import globalStyles from "../../common/GlobalStyles";
 import {Text, TouchableOpacity, View} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import colors from "../../common/colors";
@@ -7,20 +8,22 @@ import ExerciseModal from "../modals/ExerciseModal";
 import capitalizeFirstLetter from "../../common/helpers/capitalizeFirstLetter";
 
 const Exercise = ({ item, onClick }) => {
-    const [exModalOpen, setExModalOpen] = useState(false)
+    const [exModalOpen, setExModalOpen] = useState(false);
 
-    onClick = onClick || (() => setExModalOpen(true))
+    const handlePress = () => {
+        if (onClick) {
+            onClick(item);
+        } else {
+            setExModalOpen(true);
+        }
+    };
 
     return (
         <>
-            <TouchableOpacity
-                onPress={onClick}
-            >
-                <View style={styles.item} >
-                        <Text>{capitalizeFirstLetter(item?.name)}</Text>
-                    <TouchableOpacity
-                        onPress={() => setExModalOpen(true)}
-                    >
+            <TouchableOpacity onPress={handlePress}>
+                <View style={styles.item}>
+                    <Text style={globalStyles.defaultText}>{capitalizeFirstLetter(item?.name)}</Text>
+                    <TouchableOpacity onPress={() => setExModalOpen(true)}>
                         <Icon size={24} color={colors.purple} name="chevron-right" />
                     </TouchableOpacity>
                 </View>
@@ -28,7 +31,7 @@ const Exercise = ({ item, onClick }) => {
 
             <ExerciseModal modalVisible={exModalOpen} setModalVisible={setExModalOpen} item={item} />
         </>
-    )
-}
+    );
+};
 
-export default Exercise
+export default Exercise;

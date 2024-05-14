@@ -10,6 +10,7 @@ import NotificationModal from "../modals/NotificationModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setInactiveDays, setNotificationEnabled, setWeightUnit } from "../actions";
 import { useSafeAreaStyles } from "../../common/View.styles";
+import globalStyles from "../../common/GlobalStyles";
 
 const Settings = () => {
     const dispatch = useDispatch();
@@ -66,7 +67,7 @@ const Settings = () => {
     }
 
     return (
-        <ScrollView>
+        <ScrollView style={globalStyles.defaultPadding}>
             <View style={commonStyles.headerContainer}>
                 <ComponentHeader title={"Settings"} />
             </View>

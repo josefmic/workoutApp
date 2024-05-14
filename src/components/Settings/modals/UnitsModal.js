@@ -5,6 +5,7 @@ import CustomModal from "../../common/CustomModal";
 import colors from "../../common/colors";
 import UnitSetRow from "../helpers/UnitSetRow";
 import { useDispatch } from "react-redux";
+import TopButton from "../../common/buttons/TopButton";
 
 const UnitsModal = ({ modalVisible, setModalVisible, weightUnit, setWeightUnit }) => {
 
@@ -15,11 +16,9 @@ const UnitsModal = ({ modalVisible, setModalVisible, weightUnit, setWeightUnit }
 	return (
 		<CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible}>
 			<View style={styles.container}>
-				<TouchableOpacity onPress={closeModal}>
-					<MaterialIcons name="arrow-back" size={24} color={colors.purple} />
-				</TouchableOpacity>
+				<TopButton onPress={closeModal} icon="chevron-left" />
 				<Text style={styles.title}>Weight Units</Text>
-				<View />
+				<View style={{width: 25}}/>
 			</View>
 			<View style={styles.sectionContainer}>
 				<Text style={styles.sectionTitle}>System default</Text>

@@ -9,6 +9,8 @@ import {exercisesSelector} from "../reducer";
 import ExercisesFilter from "./ExercisesFilter";
 import handleFilterExercises from "../helpers/handleFilterExercises";
 import handleRenderExerciseItem from "../helpers/handleRenderExerciseItem";
+import globalStyles from "../../common/GlobalStyles";
+import {useSafeAreaStyles} from "../../common/View.styles";
 
 const Exercises = ({ onClick }) => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -16,14 +18,15 @@ const Exercises = ({ onClick }) => {
 
     const data = useSelector(exercisesSelector)
     const filteredExercises = handleFilterExercises(data, searchQuery, filterQuery)
-
-    const renderExerciseItem = ( item ) => {
-        return handleRenderExerciseItem(item, onClick);
-    };
+    const commonStyles = useSafeAreaStyles()
 
     return (
-        <View>
-            <ComponentHeader title={"Exercises"} />
+        <View style={globalStyles.defaultPadding}>
+            {!onClick &&
+                <View style={commonStyles.headerContainer}>
+                    <ComponentHeader title={"Exercises"} />
+                </View>
+            }
             <View style={styles.topContainer}>
                 <View style={styles.searchContainer}>
                     <Icon name="search" size={24} color={colors.purple} style={{ paddingHorizontal: 10 }} />
@@ -39,7 +42,7 @@ const Exercises = ({ onClick }) => {
             <View>
                 <FlatList
                     data={filteredExercises}
-                    renderItem={renderExerciseItem}
+                    renderItem={({ item }) => handleRenderExerciseItem(item, onClick)}
                     keyExtractor={(item, index) => {
                         if (item.isLetter) {
                             return `letter-${item.letter}-${index}`;
@@ -48,6 +51,7 @@ const Exercises = ({ onClick }) => {
                         }
                     }}
                     showsVerticalScrollIndicator={false}
+                    ListFooterComponent={<View style={{ height: 350 }} />}
                 />
             </View>
         </View>

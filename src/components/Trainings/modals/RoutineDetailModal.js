@@ -12,7 +12,7 @@ import Tooltip from "react-native-walkthrough-tooltip";
 
 const RoutineDetailModal = ({ routine, modalVisible, setModalVisible }) => {
     const date = new Date(routine.creationDate);
-    const [showRoutinePopover, setShowRoutinePopover] = useState(false);
+    const [showRoutineMenu, setShowRoutineMenu] = useState(false);
     const [isAddRoutineModalVisible, setIsAddRoutineModalVisible] = useState(false);
 
 
@@ -31,29 +31,29 @@ const RoutineDetailModal = ({ routine, modalVisible, setModalVisible }) => {
                     <View>
                         <View style={styles.workoutNameWrapper}>
                             <Text style={styles.workoutName}>{routine.title}</Text>
-                            <Tooltip
-                                isVisible={showRoutinePopover}
-                                onClose={() => setShowRoutinePopover(false)}
-                                content={
-                                    <RoutineMenu
-                                        routine={routine}
-                                        showView={false}
-                                        closeMenu={() => setShowRoutinePopover(false)}
-                                        setIsRoutineDetailModalVisible={() => setIsRoutineDetailModalVisible(true)}
-                                        setIsAddRoutineModalVisible={() => setIsAddRoutineModalVisible(true)}
-                                    />
-                                }
-                                placement="bottom"
-                                backgroundStyle={{ backgroundColor: 'transparent' }}
-                                contentStyle={{ padding: 0, paddingTop: 10 }}
-                                popoverStyle={{ padding: 0 }}
-                                disableShadow={true}
-                                backgroundColor={"transparent"}
-                            >
-                                <TouchableOpacity style={{ width: 30, position: "absolute", right: 0, top: 0}} onPress={() => setShowRoutinePopover(true)}>
-                                    <Icon name="ellipsis" size={25} color={colors.purple} />
-                                </TouchableOpacity>
-                            </Tooltip>
+                            <View>
+                                <Tooltip
+                                    isVisible={showRoutineMenu}
+                                    onClose={() => setShowRoutineMenu(false)}
+                                    arrowSize={{ width: 0, height: 0 }}
+                                    content={
+                                        <RoutineMenu
+                                            routine={routine}
+                                            showView={false}
+                                            closeMenu={() => setShowRoutineMenu(false)}
+                                            setIsRoutineDetailModalVisible={() => setIsRoutineDetailModalVisible(true)}
+                                            setIsAddRoutineModalVisible={() => setIsAddRoutineModalVisible(true)}
+                                        />
+                                    }
+                                    placement="bottom"
+                                    contentStyle={{ padding: 0 }}
+                                    backgroundColor={"transparent"}
+                                >
+                                    <TouchableOpacity onPress={() => setShowRoutineMenu(true)}>
+                                        <Icon name="ellipsis" size={25} color={colors.purple} />
+                                    </TouchableOpacity>
+                                </Tooltip>
+                            </View>
                             <AddRoutineModal
                                 modalVisible={isAddRoutineModalVisible}
                                 setModalVisible={setIsAddRoutineModalVisible}

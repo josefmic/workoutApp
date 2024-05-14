@@ -32,29 +32,30 @@ const Routine = ({ routine }) => {
                 </View>
             </View>
             <View style={styles.rightPart}>
-                <Tooltip
-                    isVisible={showRoutinePopover}
-                    onClose={() => setShowRoutinePopover(false)}
-                    content={
-                        <RoutineMenu
-                            routine={routine}
-                            showView={true}
-                            closeMenu={() => setShowRoutinePopover(false)}
-                            setIsRoutineDetailModalVisible={() => setIsRoutineDetailModalVisible(true)}
-                            setIsAddRoutineModalVisible={() => setIsAddRoutineModalVisible(true)}
-                        />
-                    }
-                    placement="bottom"
-                    backgroundStyle={{ backgroundColor: 'transparent' }}
-                    contentStyle={{ padding: 0, paddingTop: 10 }}
-                    popoverStyle={{ padding: 0 }}
-                    disableShadow={true}
-                    backgroundColor={"transparent"}
-                >
-                    <TouchableOpacity style={{ width: 30, position: "absolute", right: 0, top: 0}} onPress={() => setShowRoutinePopover(true)}>
-                        <Icon name="ellipsis" size={25} color={colors.purple} />
-                    </TouchableOpacity>
-                </Tooltip>
+                <View>
+                    <Tooltip
+                        isVisible={showRoutinePopover}
+                        onClose={() => setShowRoutinePopover(false)}
+                        arrowSize={{ width: 0, height: 0 }}
+                        content={
+                            <RoutineMenu
+                                routine={routine}
+                                showView={true}
+                                closeMenu={() => setShowRoutinePopover(false)}
+                                setIsRoutineDetailModalVisible={() => setIsRoutineDetailModalVisible(true)}
+                                setIsAddRoutineModalVisible={() => setIsAddRoutineModalVisible(true)}
+                            />
+                        }
+                        placement="bottom"
+                        showChildInTooltip={false}
+                        contentStyle={{ padding: 0 }}
+                        backgroundColor={"transparent"}
+                    >
+                        <TouchableOpacity style={{ width: 30, position: "absolute", right: 0, top: 0}} onPress={() => setShowRoutinePopover(true)}>
+                            <Icon name="ellipsis" size={25} color={colors.purple} />
+                        </TouchableOpacity>
+                    </Tooltip>
+                </View>
 
                 <AddRoutineModal
                     modalVisible={isAddRoutineModalVisible}

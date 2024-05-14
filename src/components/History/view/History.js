@@ -10,36 +10,6 @@ const History = () => {
     const historyData = useSelector(historySelector);
     const commonStyles = useSafeAreaStyles()
 
-    // const historyData = [{
-    //     exercises: [
-    //         {
-    //             name: "Bench Press",
-    //             sets: [["1", "2", "3", ""], ["2", "5", "10", ""]]
-    //         },
-    //         {
-    //             name: "Leg Press",
-    //             sets: [["1", "2", "3", ""], ["2", "5", "10", ""]]
-    //         },
-    //         {
-    //             name: "Leg Press",
-    //             sets: [["1", "2", "3", ""], ["2", "5", "10", ""]]
-    //         },
-    //         {
-    //             name: "Leg Press",
-    //             sets: [["1", "2", "3", ""], ["2", "5", "10", ""]]
-    //         },
-    //         {
-    //             name: "Leg Press",
-    //             sets: [["1", "2", "3", ""], ["2", "5", "10", ""]]
-    //         }
-    //     ],
-    //     routineName: "test",
-    //     finish: "13. 5. 2024 9:28:08",
-    //     photo: null,
-    //     start: "13. 5. 2024 9:27:56",
-    //     timer: "0:12"
-    // }]
-
     return (
         <ScrollView style={globalStyles.defaultPadding}>
             <View style={commonStyles.headerContainer}>

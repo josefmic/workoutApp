@@ -17,7 +17,7 @@ const RoutineDetailModal = ({ routine, modalVisible, setModalVisible }) => {
 
 
     return (
-        <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible}>
+        <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible} animation={"Right"}>
             <View>
                 <View style={styles.arrowBackWrapper}>
                     <TouchableOpacity onPress={() => setModalVisible(false)}>
@@ -54,15 +54,15 @@ const RoutineDetailModal = ({ routine, modalVisible, setModalVisible }) => {
                                     </TouchableOpacity>
                                 </Tooltip>
                             </View>
-                            <AddRoutineModal
-                                modalVisible={isAddRoutineModalVisible}
-                                setModalVisible={setIsAddRoutineModalVisible}
-                                routine={routine}
-                            />
                         </View>
                         <Text style={styles.workoutTarget}>{routine.creationDate ? `Created ${date.toDateString()}` : ""}</Text>
                     </View>
                 </View>
+                <AddRoutineModal
+                    modalVisible={isAddRoutineModalVisible}
+                    setModalVisible={setIsAddRoutineModalVisible}
+                    routine={routine}
+                />
 
                 {routine.exercises.map((exercise, index) => (
                     <View key={`routine-popup-${index}`}>

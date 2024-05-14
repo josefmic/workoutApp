@@ -9,7 +9,7 @@ import SetRow from "../../Trainings/modals/SetRow";
 const HistoryDetailModal = ({ history, modalVisible, setModalVisible }) => {
 
     return (
-        <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible}>
+        <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible} animation={"Right"}>
             <View>
                 <View style={styles.arrowBackWrapper}>
                     <TouchableOpacity onPress={() => setModalVisible(false)}>

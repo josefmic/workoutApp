@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome6";
 import colors from "../../common/colors";
@@ -9,10 +9,6 @@ import Tooltip from "react-native-walkthrough-tooltip";
 const HistoryCard = ({ history }) => {
 const [showHistoryMenu, setShowHistoryMenu] = useState(false);
 const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
-
-    useEffect(() => {
-        console.log('showHistoryMenu updated:', showHistoryMenu);
-    }, [showHistoryMenu]);
 
     return (
         <View style={styles.card}>

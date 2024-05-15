@@ -2,7 +2,7 @@ import Trainings from "../components/Trainings/view/Trainings";
 import Discover from "../components/Discover/view/Discover";
 import Exercises from "../components/Exercises/view/Exercises";
 import Settings from "../components/Settings/view/Settings";
-import History from "../components/History/History";
+import History from "../components/History/view/History";
 
 const tabs = [
     {

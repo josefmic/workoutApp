@@ -10,9 +10,11 @@ import capitalizeFirstLetter from "../../common/helpers/capitalizeFirstLetter";
 const Exercise = ({ exercise, setExercises, exercises }) => {
     const tableHead = ["SET", "WEIGHT", "REPS", ""];
 
-    const [tableData, setTableData] = useState([
-        ["1", "-", "-", ""]
-    ]);
+    const initialTableData = exercise && exercise.sets && exercise.sets.length > 0
+        ? exercise.sets.map((set, index) => [String(index + 1), set[1] || "-", set[2] || "-", ""])
+        : [["1", "-", "-", ""]];
+
+    const [tableData, setTableData] = useState(initialTableData);
 
     const addRow = () => {
         const newRow = [String(tableData.length + 1), "-", "-", ""];
@@ -55,7 +57,7 @@ const Exercise = ({ exercise, setExercises, exercises }) => {
                     <Row data={tableHead} textStyle={styles.tableHeadText} />
                     {tableData.map((rowData, rowIndex) => (
                         <Row
-                            key={rowIndex}
+                            key={`exercise-row-${rowIndex}`}
                             data={rowData.map((cellData, columnIndex) => {
                                 if (columnIndex === 0) {
                                     return (

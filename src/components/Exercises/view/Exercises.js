@@ -1,5 +1,5 @@
-import React, {useEffect, useMemo, useState} from 'react';
-import {View, Text, ScrollView, FlatList, TextInput, TouchableOpacity, Linking} from 'react-native';
+import React, {useState} from 'react';
+import {FlatList, TextInput, View} from 'react-native';
 import ComponentHeader from '../../common/ComponentHeader';
 import styles from "./Exercises.styles"
 import Icon from "react-native-vector-icons/FontAwesome";

@@ -1,4 +1,4 @@
-import {ScrollView, Text, TextInput, View} from 'react-native'
+import {ScrollView, View} from 'react-native'
 import Button from "../../common/buttons/Button";
 import styles from "./AddRoutineModal.styles"
 import Exercise from "./Exercise";
@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {saveRoutinesToStorage} from "../actions";
 import {trainingsSelector} from "../reducer";
 
-const ExercisesList = ({ exercises, setExercises, workoutTitle, setModalVisible }) => {
+const ExercisesList = ({ exercises, setExercises, workoutTitle, setModalVisible, routineId }) => {
 
     const dispatch = useDispatch();
 
@@ -14,14 +14,19 @@ const ExercisesList = ({ exercises, setExercises, workoutTitle, setModalVisible 
 
     const handleSubmit = () => {
         const title = workoutTitle.trim() === "" ? "Untitled workout routine" : workoutTitle;
-        dispatch(saveRoutinesToStorage([
-            ...(trainings ?? []),
+        const creationDate = new Date();
+
+        const updatedTrainings = [
+            ...(trainings.filter(routine => routine.id !== routineId) ?? []),
             {
                 title: title,
-                exercises: exercises
+                exercises: exercises,
+                creationDate: creationDate.toString(),
+                id: routineId ?? Date.now().toString()
             }
-        ]));
+        ];
 
+        dispatch(saveRoutinesToStorage(updatedTrainings));
         setModalVisible(false)
     };
 
@@ -30,7 +35,7 @@ const ExercisesList = ({ exercises, setExercises, workoutTitle, setModalVisible 
             <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
                 {exercises.map((exercise, index) => {
                     return (
-                        <Exercise key={index} exercise={exercise} exercises={exercises} setExercises={setExercises} />
+                        <Exercise key={`exercise-${index}`} exercise={exercise} exercises={exercises} setExercises={setExercises} />
                     )
                 })}
                 <View style={{ marginTop: 15 }}>

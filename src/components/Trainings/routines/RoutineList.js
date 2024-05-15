@@ -6,7 +6,6 @@ import {trainingsSelector} from "../reducer";
 const RoutineList = () => {
     const routines = useSelector(trainingsSelector)
 
-
     return (
         <View>
             {routines.map(((routine, index) =>

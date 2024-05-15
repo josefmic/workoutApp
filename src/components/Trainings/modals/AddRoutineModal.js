@@ -1,20 +1,19 @@
-import {View, Text, TextInput} from "react-native";
+import {Text, TextInput, View} from "react-native";
 import TopButton from "../../common/buttons/TopButton";
 import CustomModal from "../../common/CustomModal";
 import styles from "./AddRoutineModal.styles"
 import Button from "../../common/buttons/Button";
 import globalStyles from "../../common/GlobalStyles";
 import {useState} from "react";
-import Exercises from "../../Exercises/view/Exercises";
 import AddExerciseModal from "./AddExerciseModal";
 import ExercisesList from "./ExercisesList";
 
-const AddRoutineModal = ({ modalVisible, setModalVisible }) => {
+const AddRoutineModal = ({ modalVisible, setModalVisible, routine }) => {
 
     const [exercisesOpen, setExercisesOpen] = useState(false)
-    const [workoutTitle, setWorkoutTitle] = useState("");
-    const [exercises, setExercises] = useState([])
-
+    const [workoutTitle, setWorkoutTitle] = useState(routine ? routine.title : "");
+    const [exercises, setExercises] = useState(routine && routine.exercises ? routine.exercises : []);
+    const routineId = routine && routine.id ? routine.id : null;
     return (
         <CustomModal
             setModalVisible={setModalVisible}
@@ -48,6 +47,7 @@ const AddRoutineModal = ({ modalVisible, setModalVisible }) => {
                     setExercises={setExercises}
                     workoutTitle={workoutTitle}
                     setModalVisible={setModalVisible}
+                    routineId={routineId}
                 />
                 :
                 <View style={styles.addExerciseDiv}>

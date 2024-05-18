@@ -5,17 +5,18 @@ import colors from "../../common/colors";
 import HistoryMenu from "../modals/HistoryMenu";
 import HistoryDetailModal from "../modals/HistoryDetailModal";
 import Tooltip from "react-native-walkthrough-tooltip";
+import { Image } from 'react-native';
 
 const HistoryCard = ({ history }) => {
-const [showHistoryMenu, setShowHistoryMenu] = useState(false);
-const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
+    const [showHistoryMenu, setShowHistoryMenu] = useState(false);
+    const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
 
     return (
         <View style={styles.card}>
             <View style={styles.topWrapper}>
                 <View style={styles.leftCol}>
-                    <Text style={styles.trainingName}>{history.routineName}</Text>
-                    <Text style={styles.secondRow}>{history.finish}</Text>
+                    <Text style={styles.trainingName}>{history?.routineName}</Text>
+                    <Text style={styles.secondRow}>{history?.finish}</Text>
                 </View>
                 <Tooltip
                     isVisible={showHistoryMenu}
@@ -24,12 +25,15 @@ const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
                     content={
                         <HistoryMenu
                             history={history}
-                            setIsDetailModalVisible={() => setIsDetailModalVisible(true)}
+                            setIsDetailModalVisible={() => {
+                                setIsDetailModalVisible(true)
+                                setShowHistoryMenu(false)
+                            }}
                         />
                     }
                     placement="bottom"
                     showChildInTooltip={false}
-                    contentStyle={{ padding: 0 }}
+                    contentStyle={{ padding: 0, marginTop: -50 }}
                     backgroundColor={"transparent"}
                 >
                     <View style={styles.rightCol}>
@@ -40,13 +44,17 @@ const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
                     </View>
                 </Tooltip>
             </View>
-            <View style={styles.photo}>
-                <Icon name="camera" size={160} color={colors.purple} />
-            </View>
+            {history.photo && <View style={styles.photo}>
+                    <Image
+                        source={{ uri: history.photo }}
+                        style={{ width: "100%", height: "100%" }}
+                    />
+            </View>}
             <HistoryDetailModal
                 history={history}
                 modalVisible={isDetailModalVisible}
                 setModalVisible={setIsDetailModalVisible}
+                key={`history-modal-${history?.id}`}
             />
         </View>
     );
@@ -60,6 +68,7 @@ const styles = StyleSheet.create({
         padding: 16,
         backgroundColor: "#F1F4F8",
         borderRadius: 8,
+        marginBottom: 20
     },
     topWrapper: {
         display: "flex",
@@ -72,6 +81,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
+        paddingBottom: 10
     },
     rightCol: {
         display: "flex",

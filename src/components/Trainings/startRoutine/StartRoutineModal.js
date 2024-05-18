@@ -9,6 +9,14 @@ import NextExerciseButton from "./NextExerciseButton";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import {cloneDeep} from "lodash";
 import SaveToHistoryModal from "../modals/SaveToHistoryModal";
+import capitalizeFirstLetter from "../../common/helpers/capitalizeFirstLetter";
+import {
+    scheduleInactiveUserNotification, scheduleNotificationAfterWorkoutFinished,
+    scheduleTestingNotification
+} from "../../common/helpers/notificationScheduler";
+import {useSelector} from "react-redux";
+import {convertWeightToKg, convertWeigthForDisplay} from "../../common/helpers/weightConvertor";
+import {settingsSelector} from "../../Settings/reducer";
 
 
 const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
@@ -17,15 +25,19 @@ const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
     const [isTimerPaused, setIsTimerPaused] = useState(false);
     const currentExercise = routine.exercises[currentExerciseIndex];
     const exercisesCount = routine.exercises.length;
-    const tableHead = ["SET", "WEIGHT", "REPS", "DONE"];
     const [startTime, setStartTime] = useState(null);
     const [finishTime, setFinishTime] = useState(null);
     const [exercisesFinishData, setExercisesFinishData] = useState([]);
     const [isSaveToHistoryModalVisible, setIsSaveToHistoryModalVisible] = useState(false);
 
+    const inactiveDays = useSelector(state => state.settings.inactiveDays);
+    const isNotificationEnabled = useSelector(state => state.settings.isNotificationEnabled);
+    const selectedWeight = useSelector(settingsSelector).weightUnit;
+    const tableHead = ["SET", `WEIGHT (${selectedWeight})`, "REPS", "DONE"];
+
     const [tableData, setTableData] = useState(() => {
         const currentExerciseCopy = cloneDeep(currentExercise);
-        return currentExerciseCopy.sets.map((set, index) => [String(index + 1), set[1] || "-", set[2] || "-", ""])
+        return currentExerciseCopy.sets.map((set, index) => [String(index + 1), convertWeigthForDisplay(set[1], selectedWeight) || "-", set[2] || "-", ""])
     });
 
     const minutes = Math.floor(seconds / 60);
@@ -55,20 +67,36 @@ const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
         setIsSaveToHistoryModalVisible(false);
         const currentExerciseCopy = cloneDeep(currentExercise);
         setTableData(
-            currentExerciseCopy.sets.map((set, index) => [String(index + 1), set[1] || "-", set[2] || "-", ""])
+            currentExerciseCopy.sets.map((set, index) => [String(index + 1), convertWeigthForDisplay(set[1], selectedWeight) || "-", set[2] || "-", ""])
         );
     };
+
+    const convertTableData = (tableData) => {
+        return tableData.map((rowData) => {
+            console.log(rowData)
+            return rowData.map((cellData, columnIndex) => {
+                console.log(cellData, columnIndex)
+                if (columnIndex === 1) {
+                    return convertWeightToKg(cellData, selectedWeight) || "-";
+                } else {
+                    return cellData;
+                }
+            });
+        });
+    }
 
     const endExercise = () => {
         setExercisesFinishData([
             ...exercisesFinishData,
             {
-                name: currentExercise.name,
-                sets: tableData,
+                name: capitalizeFirstLetter(currentExercise.name),
+                sets: convertTableData(tableData),
             }
         ])
         setIsTimerPaused(true)
         setFinishTime(new Date());
+        scheduleNotificationAfterWorkoutFinished(inactiveDays, isNotificationEnabled);
+        scheduleTestingNotification(inactiveDays, isNotificationEnabled);        // todo - REMOVE AFTER SHOWCASE
         setIsSaveToHistoryModalVisible(true);
     }
 
@@ -77,7 +105,7 @@ const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
             setExercisesFinishData([
                 ...exercisesFinishData,
                 {
-                    name: currentExercise.name,
+                    name: capitalizeFirstLetter(currentExercise.name),
                     sets: tableData,
                 }
             ])
@@ -89,11 +117,11 @@ const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
 
     useEffect(() => {
         let timer = null;
-        if (modalVisible && !isTimerPaused) { // Check if isPaused is false
-            setStartTime(new Date()); // Set the start time when the timer starts
+        if (modalVisible && !isTimerPaused) {
+            setStartTime(new Date());
             timer = setInterval(() => {
                 setSeconds(seconds => seconds + 1);
-            }, 1000); // Update time every second
+            }, 1000);
         }
 
         return () => {
@@ -107,7 +135,7 @@ const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
     useEffect(() => {
         const currentExercise = routine.exercises[currentExerciseIndex];
         setTableData(
-            currentExercise?.sets.map((set, index) => [String(index + 1), set[1] || "-", set[2] || "-", ""])
+            currentExercise?.sets.map((set, index) => [String(index + 1), convertWeigthForDisplay(set[1], selectedWeight) || "-", set[2] || "-", ""])
         );
     }, [currentExerciseIndex]);
 
@@ -134,7 +162,7 @@ const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
                 <View style={styles.bodyWrapper}>
                     <View key={`exercise-start-${currentExerciseIndex}`}>
                         <Text style={styles.normalText}>Exercise {currentExerciseIndex + 1}/{exercisesCount}</Text>
-                        <Text style={styles.exerciseName}>{currentExercise.name}</Text>
+                        <Text style={styles.exerciseName}>{capitalizeFirstLetter(currentExercise.name)}</Text>
 
                         <Table>
                             <Row data={tableHead} textStyle={styles.tableHeadText} />
@@ -192,6 +220,7 @@ const StartRoutineModal = ({routine, modalVisible, setModalVisible}) => {
                 setStartExerciseModalVisible={setModalVisible}
                 historyObject={
                     {
+                        routineId: routine.id,
                         routineName: routine.title,
                         start: startTime?.toLocaleString(),
                         finish: finishTime?.toLocaleString(),

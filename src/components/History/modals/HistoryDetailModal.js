@@ -5,11 +5,16 @@ import {MaterialIcons} from "@expo/vector-icons";
 import colors from "../../common/colors";
 import ComponentHeader from "../../common/ComponentHeader";
 import SetRow from "../../Trainings/modals/SetRow";
+import {convertWeigthForDisplay} from "../../common/helpers/weightConvertor";
+import {useSelector} from "react-redux";
+import {settingsSelector} from "../../Settings/reducer";
+import capitalizeFirstLetter from "../../common/helpers/capitalizeFirstLetter";
 
 const HistoryDetailModal = ({ history, modalVisible, setModalVisible }) => {
+    const selectedWeight = useSelector(settingsSelector).weightUnit;
 
     return (
-        <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible} animation={"Right"}>
+        <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible} animation={"Right"} modalId={`history-detail-modal-id-${history?.id}`}>
             <View>
                 <View style={styles.arrowBackWrapper}>
                     <TouchableOpacity onPress={() => setModalVisible(false)}>
@@ -41,13 +46,13 @@ const HistoryDetailModal = ({ history, modalVisible, setModalVisible }) => {
                     </View>
                 </View>
 
-                {history?.exercises.map((exercise, index) => (
+                {history?.exercises?.map((exercise, index) => (
                     <View key={`routine-popup-${index}`}>
-                        <Text style={styles.exerciseName}>{exercise.name}</Text>
+                        <Text style={styles.exerciseName}>{capitalizeFirstLetter(exercise.name)}</Text>
                         <View style={styles.setsContainer}>
                             <SetRow set={{weight: "WEIGHT", reps: "REPS"}} index={"SET"} key={`set-row-head}`} />
                             {exercise.sets.map((set, index) => (
-                                <SetRow set={{weight: set[1], reps: set[2]}} index={index + 1} key={`set-row-${index}`}/>
+                                <SetRow set={{weight: convertWeigthForDisplay(set[1], selectedWeight), reps: set[2]}} index={index + 1} key={`set-row-${index}`}/>
                             ))}
                         </View>
                     </View>
@@ -97,6 +102,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
+        paddingBottom: 10,
     }
 });
 

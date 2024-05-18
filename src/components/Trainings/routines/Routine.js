@@ -12,7 +12,7 @@ import AddRoutineModal from "../modals/AddRoutineModal";
 import StartRoutineModal from "../startRoutine/StartRoutineModal";
 import Tooltip from 'react-native-walkthrough-tooltip';
 
-const Routine = ({ routine }) => {
+const Routine = ({routine}) => {
     const [showRoutinePopover, setShowRoutinePopover] = useState(false);
     const [isRoutineDetailModalVisible, setIsRoutineDetailModalVisible] = useState(false);
     const [isAddRoutineModalVisible, setIsAddRoutineModalVisible] = useState(false);
@@ -20,12 +20,12 @@ const Routine = ({ routine }) => {
 
     return (
         <View style={styles.container}>
-            <View style={{ padding: 15, flex: 4 }}>
+            <View style={{padding: 15, flex: 4}}>
                 <Text style={styles.title}>{routine?.title}</Text>
                 <View>
                     {routine?.exercises?.map((e, index) =>
                         <View key={`routine-exercise-${index}`} style={styles.bulletContainer}>
-                            <Icon name="circle" size={6} style={styles.bulletIcon} />
+                            <Icon name="circle" size={6} style={styles.bulletIcon}/>
                             <Text style={globalStyles.defaultText}>{capitalizeFirstLetter(e?.name)}</Text>
                         </View>
                     )}
@@ -36,23 +36,27 @@ const Routine = ({ routine }) => {
                     <Tooltip
                         isVisible={showRoutinePopover}
                         onClose={() => setShowRoutinePopover(false)}
-                        arrowSize={{ width: 0, height: 0 }}
+                        arrowSize={{width: 0, height: 0}}
                         content={
                             <RoutineMenu
                                 routine={routine}
                                 showView={true}
                                 closeMenu={() => setShowRoutinePopover(false)}
-                                setIsRoutineDetailModalVisible={() => setIsRoutineDetailModalVisible(true)}
+                                setIsRoutineDetailModalVisible={() => {
+                                    setIsRoutineDetailModalVisible(true)
+                                    setShowRoutinePopover(false)
+                                }}
                                 setIsAddRoutineModalVisible={() => setIsAddRoutineModalVisible(true)}
                             />
                         }
                         placement="bottom"
                         showChildInTooltip={false}
-                        contentStyle={{ padding: 0 }}
+                        contentStyle={{padding: 0}}
                         backgroundColor={"transparent"}
                     >
-                        <TouchableOpacity style={{ width: 30, position: "absolute", right: 0, top: 0}} onPress={() => setShowRoutinePopover(true)}>
-                            <Icon name="ellipsis" size={25} color={colors.purple} />
+                        <TouchableOpacity style={{width: 42, paddingVertical: 2, paddingHorizontal: 10, position: "absolute", right: 0, top: 0}}
+                                          onPress={() => setShowRoutinePopover(true)}>
+                            <Icon name="ellipsis" size={25} color={colors.purple}/>
                         </TouchableOpacity>
                     </Tooltip>
                 </View>
@@ -62,6 +66,7 @@ const Routine = ({ routine }) => {
                     setModalVisible={setIsAddRoutineModalVisible}
                     routine={routine}
                     key={`add-routine-modal-${routine.id}`}
+                    fromEdit={true}
                 />
                 <RoutineDetailModal
                     key={routine.id}
@@ -69,8 +74,8 @@ const Routine = ({ routine }) => {
                     modalVisible={isRoutineDetailModalVisible}
                     setModalVisible={setIsRoutineDetailModalVisible}
                 />
-                <View style={{ position: "absolute", bottom: -10, right: -10 }}>
-                    <Button title="Start" onPress={() => setIsStartRoutineModalVisible(true)} />
+                <View style={{position: "absolute", bottom: -10, right: -10}}>
+                    <Button title="Start" onPress={() => setIsStartRoutineModalVisible(true)}/>
                 </View>
                 <StartRoutineModal
                     routine={routine}
